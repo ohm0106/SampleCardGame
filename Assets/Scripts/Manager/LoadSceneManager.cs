@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using TMPro;
 using System;
 using System.Threading.Tasks;
 
@@ -17,26 +15,37 @@ public class LoadSceneManager : MonoBehaviour
         await LoadSceneAsync();
     }
 
-    public async Task LoadSceneCallback(string sceneName, Action doComplete)
+    private async Task LoadSceneAsync()
     {
-        SceneManager.LoadScene("Loading");
-        m_NextScene = sceneName;
-        await LoadSceneAsync(doComplete);
-    }
-
-    private async Task LoadSceneAsync(Action doComplete = null)
-    {
-        // Ensure the current frame has ended before starting the async operation
         await Task.Yield();
+
+        if (loadingSlider == null)
+        {
+            await Task.Delay(500);
+            loadingSlider = FindAnyObjectByType<LoadingSlider>();
+        }
+
+        if (loadingSlider != null)
+        {
+            loadingSlider.SetSlider(0, "Initializing...");
+            loadingSlider.SetSlider(0.2f, "Loading Items...");
+        }
+
+        await ItemLibrary.Instance.LoadAllItemsAsync(progress =>
+        {
+            if (loadingSlider != null)
+            {
+                loadingSlider.SetSlider(progress * 0.2f + 0.2f, "Loading Items...");
+            }
+        });
+
+        if (loadingSlider != null)
+        {
+            loadingSlider.SetSlider(0.4f, "Items Loaded.");
+        }
 
         AsyncOperation op = SceneManager.LoadSceneAsync(m_NextScene);
         op.allowSceneActivation = false;
-
-        // Initialize the slider
-        if (loadingSlider != null)
-        {
-            loadingSlider.SetSlider(0);
-        }
 
         float timer = 0.0f;
 
@@ -48,18 +57,20 @@ public class LoadSceneManager : MonoBehaviour
             float progress = Mathf.Clamp01(op.progress / 0.9f);
             if (loadingSlider != null)
             {
-                loadingSlider.SetSlider(progress);
+                loadingSlider.SetSlider(progress * 0.6f + 0.4f, "Loading Scene...");
             }
 
             if (progress >= 1f)
             {
+                if (loadingSlider != null)
+                {
+                    loadingSlider.SetSlider(1f, "Finishing Up...");
+                }
                 op.allowSceneActivation = true;
             }
         }
 
-        // Ensure that the scene has been fully loaded
         await Task.Yield();
-
-        doComplete?.Invoke();
+         
     }
 }

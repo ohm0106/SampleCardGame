@@ -24,8 +24,8 @@
 /[Aa]ssets/Plugins/Editor/JetBrains*
 
 #게임 리소스 정리 
-/[Aa]ssets/GameResources/
-/[Aa]ssets/GameResources*
+/[Aa]ssets/Resources/
+/[Aa]ssets/Resources*
 /[Aa]ssets/Layer Lab/
 /[Aa]ssets/Layer Lab*
 /[Aa]ssets/Settings/

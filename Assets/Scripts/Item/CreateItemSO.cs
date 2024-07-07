@@ -41,7 +41,6 @@ public class CreateItemSO
         items.Add(CreateItem("Pumpkin", 200, ItemType.Resource, GradeType.COMMON, 0, 0, "A Halloween pumpkin."));
         items.Add(CreateItem("Shield", 400, ItemType.Shield, GradeType.RARE, 10, 0, "A sturdy shield."));
         items.Add(CreateItem("Shovel", 100, ItemType.Resource, GradeType.COMMON, 0, 0, "A tool for digging."));
-        items.Add(CreateItem("Star", 50, ItemType.Resource, GradeType.COMMON, 0, 0, "A star emblem."));
         items.Add(CreateItem("Sword", 300, ItemType.Weapon, GradeType.RARE, 0, 7, "A sharp sword."));
         items.Add(CreateItem("Tooth", 50, ItemType.Resource, GradeType.COMMON, 0, 0, "A tooth."));
        

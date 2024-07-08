@@ -94,11 +94,7 @@ public class PopupManager : Singleton<PopupManager>
             }
         };
 
-        createdPopup.transform.localScale = Vector3.zero;
         createdPopup.SetActive(true);
-
-        createdPopup.transform.DOScale(1, 0.35f).SetEase(Ease.OutCubic).SetUpdate(true);
-
         Resources.UnloadUnusedAssets();
     }
 
@@ -158,11 +154,7 @@ public class PopupManager : Singleton<PopupManager>
             }
         };
 
-        createdPopup.transform.localScale = Vector3.zero;
         createdPopup.SetActive(true);
-
-        createdPopup.transform.DOScale(1, 0.35f).SetEase(Ease.OutCubic).SetUpdate(true);
-
         Resources.UnloadUnusedAssets();
     }
 

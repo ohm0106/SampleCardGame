@@ -5,6 +5,7 @@ using System;
 
 public class PopupItem : MonoBehaviour
 {
+
     [SerializeField]
     TMP_Text title;
     [SerializeField]
@@ -15,6 +16,8 @@ public class PopupItem : MonoBehaviour
     public Action Button3;
     public Action Close;
     public Action End;
+
+
 
     public void OnButton1()
     {

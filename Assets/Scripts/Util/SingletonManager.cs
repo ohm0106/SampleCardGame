@@ -53,6 +53,23 @@ public class SingletonManager : MonoBehaviour
         }
     }
 
+    Inventory _inventory;
+
+    public Inventory Inventory
+    {
+        get
+        {
+            if (_inventory == null)
+            {
+                _inventory = gameObject.GetComponent<Inventory>();
+                if (_inventory == null)
+                {
+                    _inventory = gameObject.AddComponent<Inventory>();
+                }
+            }
+            return _inventory;
+        }
+    }
 
     public void InitializeManagers()
     {

@@ -76,7 +76,7 @@ public class ItemLibrary : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"Failed to load items: {handle.OperationException}");
+            Debugger.PrintLog($"Failed to load items: {handle.OperationException}", LogType.Warning);
         }
     }
 
@@ -86,7 +86,8 @@ public class ItemLibrary : MonoBehaviour
         {
             return item;
         }
-        Debug.LogWarning($"Item '{itemName}' not found in the library.");
+
+        Debugger.PrintLog($"Item '{itemName}' not found in the library.",LogType.Warning);
         return null;
     }
 }

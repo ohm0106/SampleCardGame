@@ -18,8 +18,8 @@ public class Slot : MonoBehaviour
     public void UpdateSlot(Item curItem)
     {
         Slot_item.gameObject.SetActive(true); 
-        //Slot_item.sprite = slotImage; // todo 
         Sprite itemIcon = ItemLibrary.Instance.GetItem(curItem.Name).icon;
+        Slot_item.sprite = ItemLibrary.Instance.GetSlotImg(ItemLibrary.Instance.GetItem(curItem.Name).gradeType); // todo 
         ItemIcon.sprite = itemIcon;
         if (curItem.Quantity > 1)
             itemQuantity.text = $"{curItem.Quantity}";
@@ -34,6 +34,16 @@ public class Slot : MonoBehaviour
         itemQuantity.text = "";
         Slot_item.gameObject.SetActive(false);
         item = null;
+    }
+
+    public void ClickBtn()
+    {
+        if (item == null)
+            return;
+
+        Debug.Log("item" + item.Name);
+
+        FindObjectOfType<ItemInfomation>().SetUI(item);
     }
 
     public bool CheckEmpty()

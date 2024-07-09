@@ -6,7 +6,7 @@ public class InventoryDebugger : MonoBehaviour
     [SerializeField]
     private Inventory inventory;
 
-    public int selectedItemIndex = 0;  // 추가된 부분
+    public int selectedItemIndex = 0; 
     public int newItemQuantity = 1;
 
     private void OnValidate()
@@ -59,5 +59,6 @@ public class InventoryDebugger : MonoBehaviour
     public void ResetInventroy()
     {
         InventorySaver.ResetInventory();
+        inventory.GetCurInventoryData().Items = new List<Item>();
     }
 }

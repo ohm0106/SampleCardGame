@@ -53,6 +53,7 @@ public class Inventory : MonoBehaviour
             curInventoryData.Items.Add(newItem);
             // todo 리스트 추가 
         }
+
         onAdd?.Invoke(newItem);
     }
 

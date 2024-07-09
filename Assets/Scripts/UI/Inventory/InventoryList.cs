@@ -4,7 +4,7 @@ using UnityEngine;
 public class InventoryList : MonoBehaviour
 {
     [SerializeField]
-    int inventroySize = 50;
+    int inventorySize = 50;
 
     [SerializeField]
     Transform scrollRect;
@@ -13,30 +13,31 @@ public class InventoryList : MonoBehaviour
     GameObject slotPrefab;
 
     Slot[] slots;
-    List<Slot> emptySlots = new List<Slot>();
-    List<Slot> filledSlots = new List<Slot>();
+
+    // todo : 탭 (아이템 타입) 별 slot 관리 
+    // todo : GradeType 에 맞게 리스트 정렬 
 
     void OnEnable()
     {
         InitializeSlots();
         SingletonManager.Instance.Inventory.onAdd += UpdateInventoryUI;
-        SingletonManager.Instance.Inventory.onRemove += DleteInventoryUI;
+        SingletonManager.Instance.Inventory.onRemove += DeleteInventoryUI;
     }
 
     void OnDisable()
     {
         ClearAllSlots();
         SingletonManager.Instance.Inventory.onAdd -= UpdateInventoryUI;
-        SingletonManager.Instance.Inventory.onRemove -= DleteInventoryUI;
+        SingletonManager.Instance.Inventory.onRemove -= DeleteInventoryUI;
     }
 
     void InitializeSlots()
     {
-        slots = new Slot[inventroySize];
+        slots = new Slot[inventorySize];
 
         var inven_info = SingletonManager.Instance.Inventory.GetCurInventoryData();
 
-        for (int i = 0; i < inventroySize; i++)
+        for (int i = 0; i < inventorySize; i++)
         {
             GameObject slotObj = Instantiate(slotPrefab, scrollRect);
             slots[i] = slotObj.GetComponent<Slot>();
@@ -45,38 +46,39 @@ public class InventoryList : MonoBehaviour
             {
                 Item tempItem = inven_info.Items[i];
                 slots[i].UpdateSlot(tempItem);
-                filledSlots.Add(slots[i]);
             }
             else
             {
-                emptySlots.Add(slots[i]);
+                slots[i].ClearSlot();
             }
         }
     }
+
     public void UpdateInventoryUI(Item newItem)
     {
-        foreach (var slot in filledSlots)
+        foreach (var slot in slots)
         {
-            if ( !slot.CheckEmpty() && slot.GetItem().Name == newItem.Name)
+            if (slot.GetItem() != null && slot.GetItem().Name == newItem.Name)
+            {
+                slot.GetItem().Quantity += newItem.Quantity;
+                slot.UpdateSlot(slot.GetItem());
+                return;
+            }
+        }
+
+        foreach (var slot in slots)
+        {
+            if (slot.GetItem() == null)
             {
                 slot.UpdateSlot(newItem);
                 return;
             }
         }
-
-        if (emptySlots.Count > 0)
-        {
-            Slot slot = emptySlots[0];
-            slot.UpdateSlot(newItem);
-            filledSlots.Add(slot);
-            emptySlots.RemoveAt(0);
-        }
-
-
     }
-    public void DleteInventoryUI(Item newItem)
+
+    public void DeleteInventoryUI(Item newItem)
     {
-        foreach (var slot in filledSlots)
+        foreach (var slot in slots)
         {
             if (slot.GetItem() != null && slot.GetItem().Name == newItem.Name)
             {
@@ -84,7 +86,10 @@ public class InventoryList : MonoBehaviour
                 if (slot.GetItem().Quantity <= 0)
                 {
                     slot.ClearSlot();
-                    emptySlots.Add(slot);
+                }
+                else
+                {
+                    slot.UpdateSlot(slot.GetItem());
                 }
                 break;
             }
@@ -95,21 +100,31 @@ public class InventoryList : MonoBehaviour
 
     void ReorganizeSlots()
     {
-        filledSlots.RemoveAll(slot => slot.GetItem() == null);
-        filledSlots.Sort((a, b) => a.transform.GetSiblingIndex().CompareTo(b.transform.GetSiblingIndex()));
+        List<Slot> tempSlots = new List<Slot>();
 
-        foreach (var slot in filledSlots)
+        // 채워진 슬롯을 tempSlots에 추가
+        foreach (var slot in slots)
         {
-            slot.transform.SetAsLastSibling();
+            if (slot.GetItem() != null)
+            {
+                tempSlots.Add(slot);
+            }
         }
 
-        emptySlots.Clear();
+        // 빈 슬롯을 tempSlots에 추가
         foreach (var slot in slots)
         {
             if (slot.GetItem() == null)
             {
-                emptySlots.Add(slot);
+                tempSlots.Add(slot);
             }
+        }
+
+        // tempSlots의 순서대로 slots 배열 업데이트 및 인덱스 재설정
+        for (int i = 0; i < tempSlots.Count; i++)
+        {
+            slots[i] = tempSlots[i];
+            slots[i].transform.SetSiblingIndex(i);
         }
     }
 

@@ -29,6 +29,17 @@ public class ItemLibrary : MonoBehaviour
 
     private Dictionary<string, ItemSO> itemDictionary = new Dictionary<string, ItemSO>();
 
+
+    [System.Serializable]
+    public class SlotImg
+    {
+        public GradeType type;
+        public Sprite sprite;
+    }
+
+    [SerializeField]
+    SlotImg[] slotImg;
+
     private void Awake()
     {
         if (_instance == null)
@@ -90,4 +101,19 @@ public class ItemLibrary : MonoBehaviour
         Debugger.PrintLog($"Item '{itemName}' not found in the library.",LogType.Warning);
         return null;
     }
+
+    public Sprite GetSlotImg(GradeType type)
+    {
+        foreach (var arr in slotImg)
+        {
+            if (arr.type == type)
+            {
+                return arr.sprite;
+            }
+        }
+
+        return null;
+    }
+
+
 }

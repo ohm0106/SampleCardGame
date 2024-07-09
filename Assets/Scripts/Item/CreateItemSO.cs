@@ -5,45 +5,45 @@ using System.IO;
 
 public class CreateItemSO
 {
+    public static List<ItemSO> items = new List<ItemSO>
+    {
+         CreateItem("Bomb_Bomb", 300, ItemType.Weapon, GradeType.EPIC, 0, 10, "Bomb icon."),
+         CreateItem("Bomb_Dynamite", 800, ItemType.Weapon, GradeType.EPIC, 0, 10, "Bomb icon."),
+         CreateItem("Boots", 200, ItemType.Armor, GradeType.COMMON, 5, 0, "A pair of sturdy boots."),
+         CreateItem("BoxingGloves", 250, ItemType.Weapon, GradeType.COMMON, 0, 3, "Boxing gloves for combat."),
+         CreateItem("Clover", 150, ItemType.Accessory, GradeType.COMMON, 0, 0, "A clover that brings good luck."),
+         CreateItem("Crown", 500, ItemType.Accessory, GradeType.LEGENDARY, 5, 0, "A crown fit for a king."),
+         CreateItem("DogGum", 30, ItemType.Resource, GradeType.COMMON, 0, 0, "A bone for dogs."),
+         CreateItem("Egg", 10, ItemType.Resource, GradeType.COMMON, 0, 0, "A simple egg."),
+         CreateItem("Emergency_Bag", 100, ItemType.Resource, GradeType.COMMON, 0, 0, "Emergency supplies."),
+         CreateItem("Flippers", 120, ItemType.Accessory, GradeType.COMMON, 0, 0, "Flippers for swimming."),
+         CreateItem("Food_Can", 20, ItemType.Resource, GradeType.COMMON, 0, 0, "A can of food."),
+         CreateItem("Food_Pizza", 40, ItemType.Resource, GradeType.COMMON, 0, 0, "A slice of pizza."),
+         CreateItem("Food_Shell", 50, ItemType.Resource, GradeType.COMMON, 0, 0, "A seafood shell."),
+         CreateItem("Hammer", 150, ItemType.Weapon, GradeType.COMMON, 0, 3, "A basic hammer."),
+         CreateItem("Horsesheos", 70, ItemType.Resource, GradeType.COMMON, 0, 0, "A lucky horseshoe."),
+         CreateItem("Magnetic", 80, ItemType.Resource, GradeType.COMMON, 0, 0, "A strong magnet."),
+         CreateItem("Mail", 100, ItemType.Resource, GradeType.COMMON, 0, 0, "A mail envelope."),
+         CreateItem("Missile", 400, ItemType.Weapon, GradeType.EPIC, 0, 15, "A powerful missile."),
+         CreateItem("Nut", 30, ItemType.Resource, GradeType.COMMON, 0, 0, "A basic nut."),
+         CreateItem("Oil", 100, ItemType.Resource, GradeType.COMMON, 0, 0, "A bottle of oil."),
+         CreateItem("Potion_Blue", 150, ItemType.Potion, GradeType.COMMON, 0, 0, "A blue potion."),
+         CreateItem("Potion_Purple", 150, ItemType.Potion, GradeType.COMMON, 0, 0, "A purple potion."),
+         CreateItem("Potion_Red", 150, ItemType.Potion, GradeType.COMMON, 0, 0, "A red potion."),
+         CreateItem("BigPotion_Green", 150, ItemType.Potion, GradeType.COMMON, 0, 0, "A green potion."),
+         CreateItem("BigPotion_Purple", 150, ItemType.Potion, GradeType.COMMON, 0, 0, "A purple potion."),
+         CreateItem("BigPotion_Red", 150, ItemType.Potion, GradeType.COMMON, 0, 0, "A yellow potion."),
+         CreateItem("Pumkin", 200, ItemType.Resource, GradeType.COMMON, 0, 0, "A Halloween pumpkin."),
+         CreateItem("Shield", 400, ItemType.Shield, GradeType.RARE, 10, 0, "A sturdy shield."),
+         CreateItem("Shovel", 100, ItemType.Resource, GradeType.COMMON, 0, 0, "A tool for digging."),
+         CreateItem("Sword", 300, ItemType.Weapon, GradeType.RARE, 0, 7, "A sharp sword."),
+         CreateItem("Tooth", 50, ItemType.Resource, GradeType.COMMON, 0, 0, "A tooth.")
+    };
+
     [MenuItem("Assets/Item/Create ItemSO Data")]
     public static void CreateItems()
     {
-        // 아이템 데이터를 담을 리스트
-        List<ItemSO> items = new List<ItemSO>();
 
-        // 아이템 데이터를 추가합니다.
-        items.Add(CreateItem("Bomb", 300, ItemType.Weapon, GradeType.EPIC, 0, 10, "Bomb icon."));
-        items.Add(CreateItem("Boots", 200, ItemType.Armor, GradeType.COMMON, 5, 0, "A pair of sturdy boots."));
-        items.Add(CreateItem("BoxingGlove", 250, ItemType.Weapon, GradeType.COMMON, 0, 3, "Boxing gloves for combat."));
-        items.Add(CreateItem("Clover", 150, ItemType.Accessory, GradeType.COMMON, 0, 0, "A clover that brings good luck."));
-        items.Add(CreateItem("Crown", 500, ItemType.Accessory, GradeType.LEGENDARY, 5, 0, "A crown fit for a king."));
-        items.Add(CreateItem("DogBone", 30, ItemType.Resource, GradeType.COMMON, 0, 0, "A bone for dogs."));
-        items.Add(CreateItem("Egg", 10, ItemType.Resource, GradeType.COMMON, 0, 0, "A simple egg."));
-        items.Add(CreateItem("Emergency", 100, ItemType.Resource, GradeType.COMMON, 0, 0, "Emergency supplies."));
-        items.Add(CreateItem("Flippers", 120, ItemType.Accessory, GradeType.COMMON, 0, 0, "Flippers for swimming."));
-        items.Add(CreateItem("FoodCan", 20, ItemType.Resource, GradeType.COMMON, 0, 0, "A can of food."));
-        items.Add(CreateItem("FoodChicken", 30, ItemType.Resource, GradeType.COMMON, 0, 0, "A piece of chicken."));
-        items.Add(CreateItem("FoodPizza", 40, ItemType.Resource, GradeType.COMMON, 0, 0, "A slice of pizza."));
-        items.Add(CreateItem("FoodShell", 50, ItemType.Resource, GradeType.COMMON, 0, 0, "A seafood shell."));
-        items.Add(CreateItem("Hammer", 150, ItemType.Weapon, GradeType.COMMON, 0, 3, "A basic hammer."));
-        items.Add(CreateItem("HorseShoe", 70, ItemType.Resource, GradeType.COMMON, 0, 0, "A lucky horseshoe."));
-        items.Add(CreateItem("Magnet", 80, ItemType.Resource, GradeType.COMMON, 0, 0, "A strong magnet."));
-        items.Add(CreateItem("Mail", 100, ItemType.Resource, GradeType.COMMON, 0, 0, "A mail envelope."));
-        items.Add(CreateItem("Missile", 400, ItemType.Weapon, GradeType.EPIC, 0, 15, "A powerful missile."));
-        items.Add(CreateItem("Nut", 30, ItemType.Resource, GradeType.COMMON, 0, 0, "A basic nut."));
-        items.Add(CreateItem("Oil", 100, ItemType.Resource, GradeType.COMMON, 0, 0, "A bottle of oil."));
-        items.Add(CreateItem("Potion_Blue", 150, ItemType.Potion, GradeType.COMMON, 0, 0, "A blue potion."));
-        items.Add(CreateItem("Potion_Purple", 150, ItemType.Potion, GradeType.COMMON, 0, 0, "A purple potion."));
-        items.Add(CreateItem("Potion_Red", 150, ItemType.Potion, GradeType.COMMON, 0, 0, "A red potion."));
-        items.Add(CreateItem("BigPotion_Green", 150, ItemType.Potion, GradeType.COMMON, 0, 0, "A green potion."));
-        items.Add(CreateItem("BigPotion_Purple", 150, ItemType.Potion, GradeType.COMMON, 0, 0, "A purple potion."));
-        items.Add(CreateItem("BigPotion_Yellow", 150, ItemType.Potion, GradeType.COMMON, 0, 0, "A yellow potion."));
-        items.Add(CreateItem("Pumpkin", 200, ItemType.Resource, GradeType.COMMON, 0, 0, "A Halloween pumpkin."));
-        items.Add(CreateItem("Shield", 400, ItemType.Shield, GradeType.RARE, 10, 0, "A sturdy shield."));
-        items.Add(CreateItem("Shovel", 100, ItemType.Resource, GradeType.COMMON, 0, 0, "A tool for digging."));
-        items.Add(CreateItem("Sword", 300, ItemType.Weapon, GradeType.RARE, 0, 7, "A sharp sword."));
-        items.Add(CreateItem("Tooth", 50, ItemType.Resource, GradeType.COMMON, 0, 0, "A tooth."));
-       
         foreach (var item in items)
         {
             AssetDatabase.CreateAsset(item, $"Assets/SO/Items/{item.itemName}.asset");

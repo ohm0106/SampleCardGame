@@ -41,7 +41,6 @@ public class Inventory : MonoBehaviour
         if (curInventoryData.Items.Count != 0)
         {
             existingItem = curInventoryData.Items.Find(item => item.Name == newItem.Name);
-
         }
 
         if (existingItem != null)
@@ -57,6 +56,10 @@ public class Inventory : MonoBehaviour
         onAdd?.Invoke(newItem);
     }
 
+    public List<Item> GetItemsByTypes(List<ItemType> itemTypes)
+    {
+        return curInventoryData.Items.FindAll(item => itemTypes.Contains(ItemLibrary.Instance.GetItem(item.Name).itemType));
+    }
 
     public InventoryData GetCurInventoryData()
     {

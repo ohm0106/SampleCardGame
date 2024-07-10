@@ -52,6 +52,8 @@ public class InventoryList : MonoBehaviour
                 slots[i].ClearSlot();
             }
         }
+
+        ReorganizeSlots();
     }
 
     public void UpdateInventoryUI(Item newItem)
@@ -60,8 +62,9 @@ public class InventoryList : MonoBehaviour
         {
             if (slot.GetItem() != null && slot.GetItem().Name == newItem.Name)
             {
-                slot.GetItem().Quantity += newItem.Quantity;
-                slot.UpdateSlot(slot.GetItem());
+                newItem.Quantity += slot.GetItem().Quantity;
+                slot.UpdateSlot(newItem);
+                ReorganizeSlots();
                 return;
             }
         }
@@ -71,6 +74,7 @@ public class InventoryList : MonoBehaviour
             if (slot.GetItem() == null)
             {
                 slot.UpdateSlot(newItem);
+                ReorganizeSlots();
                 return;
             }
         }
@@ -91,8 +95,25 @@ public class InventoryList : MonoBehaviour
                 {
                     slot.UpdateSlot(slot.GetItem());
                 }
+                ReorganizeSlots();
                 break;
             }
+        }
+
+    
+    }
+    public void FilterItemsByType(List<ItemType> itemTypes)
+    {
+        ClearAllSlots();
+
+        var itemsByType = SingletonManager.Instance.Inventory.GetItemsByTypes(itemTypes);
+
+        Debug.Log("check item By Type " + itemsByType.Count);
+
+        for (int i = 0; i < itemsByType.Count && i < inventorySize; i++)
+        {
+            Item tempItem = itemsByType[i];
+            slots[i].UpdateSlot(tempItem);
         }
 
         ReorganizeSlots();
@@ -100,31 +121,36 @@ public class InventoryList : MonoBehaviour
 
     void ReorganizeSlots()
     {
-        List<Slot> tempSlots = new List<Slot>();
+        List<Slot> filledSlots = new List<Slot>();
+        List<Slot> emptySlots = new List<Slot>();
 
-        // 채워진 슬롯을 tempSlots에 추가
         foreach (var slot in slots)
         {
             if (slot.GetItem() != null)
             {
-                tempSlots.Add(slot);
+                filledSlots.Add(slot);
             }
-        }
-
-        // 빈 슬롯을 tempSlots에 추가
-        foreach (var slot in slots)
-        {
-            if (slot.GetItem() == null)
+            else
             {
-                tempSlots.Add(slot);
+                emptySlots.Add(slot);
             }
         }
 
-        // tempSlots의 순서대로 slots 배열 업데이트 및 인덱스 재설정
-        for (int i = 0; i < tempSlots.Count; i++)
+        filledSlots.Sort((a, b) => b.GetItem().GradeType.CompareTo(a.GetItem().GradeType));
+
+        int index = 0;
+        foreach (var slot in filledSlots)
         {
-            slots[i] = tempSlots[i];
-            slots[i].transform.SetSiblingIndex(i);
+            slots[index] = slot;
+            slots[index].transform.SetSiblingIndex(index);
+            index++;
+        }
+
+        foreach (var slot in emptySlots)
+        {
+            slots[index] = slot;
+            slots[index].transform.SetSiblingIndex(index);
+            index++;
         }
     }
 
@@ -135,4 +161,5 @@ public class InventoryList : MonoBehaviour
             slot.ClearSlot();
         }
     }
+
 }

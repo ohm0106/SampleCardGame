@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Pumkin
   price: 200
-  itemType: 5
+  itemType: 32
   gradeType: 0
   defense: 0
   critical: 0

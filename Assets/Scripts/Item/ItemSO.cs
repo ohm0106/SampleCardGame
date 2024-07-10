@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewItem", menuName = "Item")]
@@ -14,14 +15,17 @@ public class ItemSO : ScriptableObject
     public string description;
 }
 
+[Flags]
 public enum ItemType
 {
-    Weapon,
-    Shield,
-    Armor,
-    Accessory,
-    Potion,
-    Resource
+    None = 0,
+    Weapon = 1 << 0,    
+    Shield = 1 << 1,     
+    Armor = 1 << 2,     
+    Accessory = 1 << 3, 
+    Potion = 1 << 4,     
+    Resource = 1 << 5,
+    All = int.MaxValue
 }
 
 public enum GradeType

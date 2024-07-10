@@ -35,7 +35,7 @@ public class SingletonManager : MonoBehaviour
         }
     }
 
-    LoadSceneManager _loadSceneManager;
+    private LoadSceneManager _loadSceneManager;
 
     public LoadSceneManager LoadSceneManager
     {
@@ -53,7 +53,7 @@ public class SingletonManager : MonoBehaviour
         }
     }
 
-    Inventory _inventory;
+    private Inventory _inventory;
 
     public Inventory Inventory
     {
@@ -71,8 +71,4 @@ public class SingletonManager : MonoBehaviour
         }
     }
 
-    public void InitializeManagers()
-    {
-        
-    }
 }

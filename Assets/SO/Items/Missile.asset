@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Missile
   price: 400
-  itemType: 0
+  itemType: 1
   gradeType: 1
   defense: 0
   critical: 15

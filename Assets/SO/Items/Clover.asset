@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Clover
   price: 150
-  itemType: 3
+  itemType: 8
   gradeType: 0
   defense: 0
   critical: 0

@@ -24,6 +24,7 @@ public class InventoryDebugger : MonoBehaviour
             Item item = new Item();
             item.Name = CreateItemSO.items[selectedItemIndex].itemName;
             item.Quantity = newItemQuantity;
+            item.GradeType = CreateItemSO.items[selectedItemIndex].gradeType;
             inventory.AddItem(item);
         }
     }

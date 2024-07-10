@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Boots
   price: 200
-  itemType: 2
+  itemType: 4
   gradeType: 0
   defense: 5
   critical: 0

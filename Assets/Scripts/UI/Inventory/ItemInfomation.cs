@@ -22,6 +22,11 @@ public class ItemInfomation : MonoBehaviour
     [SerializeField]
     Slot slot;
 
+    private void OnDisable()
+    {
+        Release();
+    }
+
     public void SetUI(Item item)
     {
         ItemSO tempItemSO = ItemLibrary.Instance.GetItem(item.Name);
@@ -45,6 +50,9 @@ public class ItemInfomation : MonoBehaviour
 
     public void Release()
     {
+        if (slot.GetItem() == null)
+            return;
+
         item_infomation_obj.SetActive(false);
         grade.text = "";
         name.text = "";
@@ -52,6 +60,7 @@ public class ItemInfomation : MonoBehaviour
         attackDamage.text = "";
         defenseDamage.text = "";
         price.text = "";
+        slot.ClearSlot();
     }
 
 }

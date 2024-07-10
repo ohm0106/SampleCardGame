@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: BigPotion_Red
   price: 150
-  itemType: 4
+  itemType: 16
   gradeType: 0
   defense: 0
   critical: 0

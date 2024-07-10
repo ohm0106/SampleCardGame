@@ -43,7 +43,6 @@ public class CreateItemSO
     [MenuItem("Assets/Item/Create ItemSO Data")]
     public static void CreateItems()
     {
-
         foreach (var item in items)
         {
             AssetDatabase.CreateAsset(item, $"Assets/SO/Items/{item.itemName}.asset");

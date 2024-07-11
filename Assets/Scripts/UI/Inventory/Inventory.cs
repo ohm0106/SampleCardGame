@@ -9,16 +9,20 @@ public class Inventory : MonoBehaviour
     public event Action<Item> onRemove;
     public event Action<Item> onAdd;
 
-    private void OnEnable()
+    private void Start()
     {
         curInventoryData = SaveLoadUtility.LoadData<InventoryData>(SaveLoadUtility.inventoryFilePath);
+
+        if (curInventoryData.Items == null)
+        {
+            curInventoryData.Items = new List<Item>();
+        }
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
-        SaveLoadUtility.SaveData<InventoryData>(curInventoryData,SaveLoadUtility.inventoryFilePath);
+        SaveLoadUtility.SaveData<InventoryData>(curInventoryData, SaveLoadUtility.inventoryFilePath);
     }
-
     public void RemoveItem(Item newItem)
     {
         Item existingItem = curInventoryData.Items.Find(item => item.Name == newItem.Name);

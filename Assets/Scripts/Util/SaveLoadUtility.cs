@@ -4,8 +4,8 @@ using UnityEngine;
 
 public static class SaveLoadUtility
 {
-    public static readonly string inventoryFilePath = Application.persistentDataPath + "/inventory.json";
-    public static readonly string currencyFilePath = Application.persistentDataPath + "/currency.json";
+    public static readonly string inventoryFilePath = "/inventory.json";
+    public static readonly string currencyFilePath = "/currency.json";
 
     public static void SaveData<T>(T data, string fileName)
     {

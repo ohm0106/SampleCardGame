@@ -32,6 +32,27 @@ public class InventoryDebuggerEditor : Editor
         {
             debugger.RemoveSelectedItem();
         }
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Currency Debugging", EditorStyles.boldLabel);
+
+        debugger.currencyAmount = EditorGUILayout.IntField("Currency Amount", debugger.currencyAmount);
+
+        if (GUILayout.Button("Add Coins"))
+        {
+            debugger.AddCoins();
+        }
+
+
+        if (GUILayout.Button("Add Gems"))
+        {
+            debugger.AddGems();
+        }
+
+
+        if (GUILayout.Button("Add Energy"))
+        {
+            debugger.AddEnergy();
+        }
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Inventory Actions", EditorStyles.boldLabel);

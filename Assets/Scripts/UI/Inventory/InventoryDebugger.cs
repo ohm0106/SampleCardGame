@@ -9,6 +9,8 @@ public class InventoryDebugger : MonoBehaviour
     public int selectedItemIndex = 0; 
     public int newItemQuantity = 1;
 
+    public int currencyAmount = 100;
+
     private void OnValidate()
     {
         if (inventory == null)
@@ -64,4 +66,21 @@ public class InventoryDebugger : MonoBehaviour
         SaveLoadUtility.ResetData<InventoryData>(SaveLoadUtility.inventoryFilePath);
         inventory.GetCurInventoryData().Items = new List<Item>();
     }
+
+    // 재화 관련 디버깅 메서드 추가
+    public void AddCoins()
+    {
+        inventory.AddCoins(currencyAmount);
+    }
+
+    public void AddGems()
+    {
+        inventory.AddGems(currencyAmount);
+    }
+
+    public void AddEnergy()
+    {
+        inventory.AddEnergy(currencyAmount);
+    }
+
 }

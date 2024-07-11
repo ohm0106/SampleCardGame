@@ -11,12 +11,12 @@ public class Inventory : MonoBehaviour
 
     private void OnEnable()
     {
-        curInventoryData = InventorySaver.LoadInventory();
+        curInventoryData = SaveLoadUtility.LoadData<InventoryData>(SaveLoadUtility.inventoryFilePath);
     }
 
     private void OnDisable()
     {
-        InventorySaver.SaveInventory(curInventoryData);
+        SaveLoadUtility.SaveData<InventoryData>(curInventoryData,SaveLoadUtility.inventoryFilePath);
     }
 
     public void RemoveItem(Item newItem)

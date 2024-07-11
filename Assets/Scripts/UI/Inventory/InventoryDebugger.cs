@@ -45,14 +45,14 @@ public class InventoryDebugger : MonoBehaviour
 
     public void SaveInventory()
     {
-        SaveLoadUtility.SaveData<InventoryData>(inventory.GetCurInventoryData(),SaveLoadUtility.currencyFilePath);
+        SaveLoadUtility.SaveData<InventoryData>(inventory.GetCurInventoryData(),SaveLoadUtility.inventoryFilePath);
 
 
     }
 
     public void LoadInventory()
     {
-        InventoryData data = SaveLoadUtility.LoadData<InventoryData>(SaveLoadUtility.currencyFilePath);
+        InventoryData data = SaveLoadUtility.LoadData<InventoryData>(SaveLoadUtility.inventoryFilePath);
         if (data != null)
         {
             inventory.GetCurInventoryData().Items = data.Items;
@@ -61,7 +61,7 @@ public class InventoryDebugger : MonoBehaviour
 
     public void ResetInventroy()
     {
-        SaveLoadUtility.ResetData<InventoryData>(SaveLoadUtility.currencyFilePath);
+        SaveLoadUtility.ResetData<InventoryData>(SaveLoadUtility.inventoryFilePath);
         inventory.GetCurInventoryData().Items = new List<Item>();
     }
 }

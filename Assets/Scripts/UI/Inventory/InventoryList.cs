@@ -35,16 +35,16 @@ public class InventoryList : MonoBehaviour
     {
         slots = new Slot[inventorySize];
 
-        var inven_info = SingletonManager.Instance.Inventory.GetCurInventoryData();
+        var itemsInfo = SingletonManager.Instance.Inventory.GetCurItemsData();
 
         for (int i = 0; i < inventorySize; i++)
         {
             GameObject slotObj = Instantiate(slotPrefab, scrollRect);
             slots[i] = slotObj.GetComponent<Slot>();
 
-            if (i < inven_info.Items.Count)
+            if (i < itemsInfo.Count)
             {
-                Item tempItem = inven_info.Items[i];
+                Item tempItem = itemsInfo[i];
                 slots[i].UpdateSlot(tempItem);
             }
             else

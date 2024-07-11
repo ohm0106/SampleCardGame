@@ -17,12 +17,19 @@ public class Inventory : MonoBehaviour
         {
             curInventoryData.Items = new List<Item>();
         }
+
+        if (curInventoryData.Currency == null)
+        {
+            curInventoryData.Currency = new CurrencyData();
+        }
     }
 
     private void OnDestroy()
     {
         SaveLoadUtility.SaveData<InventoryData>(curInventoryData, SaveLoadUtility.inventoryFilePath);
     }
+
+    #region 아이템
     public void RemoveItem(Item newItem)
     {
         Item existingItem = curInventoryData.Items.Find(item => item.Name == newItem.Name);
@@ -65,9 +72,68 @@ public class Inventory : MonoBehaviour
         return curInventoryData.Items.FindAll(item => itemTypes.Contains(ItemLibrary.Instance.GetItem(item.Name).itemType));
     }
 
-    public InventoryData GetCurInventoryData()
+    public List<Item> GetCurItemsData()
     {
-        return curInventoryData;
+        return curInventoryData.Items;
     }
 
+    public InventoryData GetCurInventoryData()
+    {
+        return curInventoryData; 
+    }
+    #endregion
+
+    #region 재화 
+    public void AddCoins(int amount)
+    {
+        curInventoryData.Currency.Coins += amount;
+        SaveLoadUtility.SaveData<InventoryData>(curInventoryData, SaveLoadUtility.inventoryFilePath);
+    }
+
+    public bool RemoveCoins(int amount)
+    {
+        if (curInventoryData.Currency.Coins >= amount)
+        {
+            curInventoryData.Currency.Coins -= amount;
+            SaveLoadUtility.SaveData<InventoryData>(curInventoryData, SaveLoadUtility.inventoryFilePath);
+            return true;
+        }
+        return false;
+    }
+
+    public void AddGems(int amount)
+    {
+        curInventoryData.Currency.Gems += amount;
+        SaveLoadUtility.SaveData<InventoryData>(curInventoryData, SaveLoadUtility.inventoryFilePath);
+    }
+
+    public bool RemoveGems(int amount)
+    {
+        if (curInventoryData.Currency.Gems >= amount)
+        {
+            curInventoryData.Currency.Gems -= amount;
+            SaveLoadUtility.SaveData<InventoryData>(curInventoryData, SaveLoadUtility.inventoryFilePath);
+            return true;
+        }
+        return false;
+    }
+
+    public void AddEnergy(int amount)
+    {
+        curInventoryData.Currency.Energy += amount;
+        SaveLoadUtility.SaveData<InventoryData>(curInventoryData, SaveLoadUtility.inventoryFilePath);
+    }
+
+    public bool RemoveEnergy(int amount)
+    {
+        if (curInventoryData.Currency.Energy >= amount)
+        {
+            curInventoryData.Currency.Energy -= amount;
+            SaveLoadUtility.SaveData<InventoryData>(curInventoryData, SaveLoadUtility.inventoryFilePath);
+            return true;
+        }
+        return false;
+    }
+
+    #endregion
 }

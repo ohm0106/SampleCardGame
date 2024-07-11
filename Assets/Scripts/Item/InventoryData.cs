@@ -5,5 +5,7 @@ using System.Collections.Generic;
 public class InventoryData
 {
     public List<Item> Items { get; set; }
+
+    public CurrencyData Currency;
 }
 

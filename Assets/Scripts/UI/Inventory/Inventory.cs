@@ -6,8 +6,12 @@ public class Inventory : MonoBehaviour
 {
     InventoryData curInventoryData;
 
-    public event Action<Item> onRemove;
-    public event Action<Item> onAdd;
+    public event Action<Item> onRemoveItem;
+    public event Action<Item> onAddItem;
+
+    public event Action<int> onAddCoin;
+    public event Action<int> onAddGem;
+    public event Action<int> onAddEnergy;
 
     private void Start()
     {
@@ -42,7 +46,7 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        onRemove?.Invoke(newItem);
+        onRemoveItem?.Invoke(newItem);
     }
 
     public void AddItem(Item newItem)
@@ -64,7 +68,7 @@ public class Inventory : MonoBehaviour
             // todo 리스트 추가 
         }
 
-        onAdd?.Invoke(newItem);
+        onAddItem?.Invoke(newItem);
     }
 
     public List<Item> GetItemsByTypes(List<ItemType> itemTypes)
@@ -84,56 +88,50 @@ public class Inventory : MonoBehaviour
     #endregion
 
     #region 재화 
-    public void AddCoins(int amount)
+    public bool AddCoins(int amount)
     {
-        curInventoryData.Currency.Coins += amount;
-        SaveLoadUtility.SaveData<InventoryData>(curInventoryData, SaveLoadUtility.inventoryFilePath);
-    }
-
-    public bool RemoveCoins(int amount)
-    {
-        if (curInventoryData.Currency.Coins >= amount)
+        if ((curInventoryData.Currency.Coins = amount) > 0)
         {
-            curInventoryData.Currency.Coins -= amount;
-            SaveLoadUtility.SaveData<InventoryData>(curInventoryData, SaveLoadUtility.inventoryFilePath);
-            return true;
+            curInventoryData.Currency.Coins += amount;
+            onAddEnergy.Invoke(curInventoryData.Currency.Coins);
         }
-        return false;
-    }
-
-    public void AddGems(int amount)
-    {
-        curInventoryData.Currency.Gems += amount;
-        SaveLoadUtility.SaveData<InventoryData>(curInventoryData, SaveLoadUtility.inventoryFilePath);
-    }
-
-    public bool RemoveGems(int amount)
-    {
-        if (curInventoryData.Currency.Gems >= amount)
+        else
         {
-            curInventoryData.Currency.Gems -= amount;
-            SaveLoadUtility.SaveData<InventoryData>(curInventoryData, SaveLoadUtility.inventoryFilePath);
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
-    public void AddEnergy(int amount)
+    public bool AddGems(int amount)
     {
-        curInventoryData.Currency.Energy += amount;
-        SaveLoadUtility.SaveData<InventoryData>(curInventoryData, SaveLoadUtility.inventoryFilePath);
-    }
-
-    public bool RemoveEnergy(int amount)
-    {
-        if (curInventoryData.Currency.Energy >= amount)
+        if ((curInventoryData.Currency.Gems = amount) > 0)
         {
-            curInventoryData.Currency.Energy -= amount;
-            SaveLoadUtility.SaveData<InventoryData>(curInventoryData, SaveLoadUtility.inventoryFilePath);
-            return true;
+            curInventoryData.Currency.Gems += amount;
+            onAddEnergy.Invoke(curInventoryData.Currency.Gems);
         }
-        return false;
+        else
+        {
+            return false;
+        }
+        return true;
+
     }
+
+
+    public bool AddEnergy(int amount)
+    {
+        if ((curInventoryData.Currency.Energy = amount) > 0)
+        {
+            curInventoryData.Currency.Energy += amount;
+            onAddEnergy.Invoke(curInventoryData.Currency.Energy);
+        }
+        else
+        {
+            return false;
+        }
+        return true;
+    }
+
 
     #endregion
 }

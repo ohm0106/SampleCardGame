@@ -20,15 +20,15 @@ public class InventoryList : MonoBehaviour
     void OnEnable()
     {
         InitializeSlots();
-        SingletonManager.Instance.Inventory.onAdd += UpdateInventoryUI;
-        SingletonManager.Instance.Inventory.onRemove += DeleteInventoryUI;
+        SingletonManager.Instance.Inventory.onAddItem += UpdateInventoryUI;
+        SingletonManager.Instance.Inventory.onRemoveItem += DeleteInventoryUI;
     }
 
     void OnDisable()
     {
         ClearAllSlots();
-        SingletonManager.Instance.Inventory.onAdd -= UpdateInventoryUI;
-        SingletonManager.Instance.Inventory.onRemove -= DeleteInventoryUI;
+        SingletonManager.Instance.Inventory.onAddItem -= UpdateInventoryUI;
+        SingletonManager.Instance.Inventory.onRemoveItem -= DeleteInventoryUI;
     }
 
     void InitializeSlots()

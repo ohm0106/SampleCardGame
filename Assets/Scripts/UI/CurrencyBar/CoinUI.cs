@@ -12,13 +12,13 @@ public class CoinUI : MonoBehaviour
 
     private void OnEnable()
     {
-        SingletonManager.Instance.Inventory.onAddEnergy += UpdateCoinText;
+        SingletonManager.Instance.Inventory.onAddCoin += UpdateCoinText;
         UpdateCoinText(SingletonManager.Instance.Inventory.GetCurInventoryData().Currency.Coins);
     }
 
     private void OnDisable()
     {
-        SingletonManager.Instance.Inventory.onAddEnergy -= UpdateCoinText;
+        SingletonManager.Instance.Inventory.onAddCoin -= UpdateCoinText;
     }
 
     void UpdateCoinText(int coin)

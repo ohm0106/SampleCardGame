@@ -12,13 +12,13 @@ public class GemUI : MonoBehaviour
 
     private void OnEnable()
     {
-        SingletonManager.Instance.Inventory.onAddEnergy += UpdateGemText;
+        SingletonManager.Instance.Inventory.onAddGem += UpdateGemText;
         UpdateGemText(SingletonManager.Instance.Inventory.GetCurInventoryData().Currency.Gems);
     }
 
     private void OnDisable()
     {
-        SingletonManager.Instance.Inventory.onAddEnergy -= UpdateGemText;
+        SingletonManager.Instance.Inventory.onAddGem -= UpdateGemText;
     }
 
     void UpdateGemText(int energy)

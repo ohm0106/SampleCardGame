@@ -90,10 +90,10 @@ public class Inventory : MonoBehaviour
     #region ÀçÈ­ 
     public bool AddCoins(int amount)
     {
-        if ((curInventoryData.Currency.Coins = amount) > 0)
+        if ((curInventoryData.Currency.Coins + amount) > 0)
         {
             curInventoryData.Currency.Coins += amount;
-            onAddEnergy.Invoke(curInventoryData.Currency.Coins);
+            onAddCoin.Invoke(curInventoryData.Currency.Coins);
         }
         else
         {
@@ -104,10 +104,10 @@ public class Inventory : MonoBehaviour
 
     public bool AddGems(int amount)
     {
-        if ((curInventoryData.Currency.Gems = amount) > 0)
+        if ((curInventoryData.Currency.Gems + amount) > 0)
         {
             curInventoryData.Currency.Gems += amount;
-            onAddEnergy.Invoke(curInventoryData.Currency.Gems);
+            onAddGem.Invoke(curInventoryData.Currency.Gems);
         }
         else
         {
@@ -120,7 +120,7 @@ public class Inventory : MonoBehaviour
 
     public bool AddEnergy(int amount)
     {
-        if ((curInventoryData.Currency.Energy = amount) > 0)
+        if ((curInventoryData.Currency.Energy + amount) > 0)
         {
             curInventoryData.Currency.Energy += amount;
             onAddEnergy.Invoke(curInventoryData.Currency.Energy);

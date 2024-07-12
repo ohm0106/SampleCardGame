@@ -93,7 +93,7 @@ public class Inventory : MonoBehaviour
         if ((curInventoryData.Currency.Coins + amount) > 0)
         {
             curInventoryData.Currency.Coins += amount;
-            onAddCoin.Invoke(curInventoryData.Currency.Coins);
+            onAddCoin?.Invoke(curInventoryData.Currency.Coins);
         }
         else
         {
@@ -107,7 +107,7 @@ public class Inventory : MonoBehaviour
         if ((curInventoryData.Currency.Gems + amount) > 0)
         {
             curInventoryData.Currency.Gems += amount;
-            onAddGem.Invoke(curInventoryData.Currency.Gems);
+            onAddGem?.Invoke(curInventoryData.Currency.Gems);
         }
         else
         {
@@ -123,7 +123,7 @@ public class Inventory : MonoBehaviour
         if ((curInventoryData.Currency.Energy + amount) > 0)
         {
             curInventoryData.Currency.Energy += amount;
-            onAddEnergy.Invoke(curInventoryData.Currency.Energy);
+            onAddEnergy?.Invoke(curInventoryData.Currency.Energy);
         }
         else
         {

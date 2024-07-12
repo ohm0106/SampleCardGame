@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class SingletonManager : MonoBehaviour
 {
     private static SingletonManager _instance;
@@ -28,6 +27,7 @@ public class SingletonManager : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
+            InitializeManagers();
         }
         else if (_instance != this)
         {
@@ -71,4 +71,10 @@ public class SingletonManager : MonoBehaviour
         }
     }
 
+    private void InitializeManagers()
+    {
+        // LoadSceneManager와 Inventory 초기화
+        _loadSceneManager = LoadSceneManager;
+        _inventory = Inventory;
+    }
 }

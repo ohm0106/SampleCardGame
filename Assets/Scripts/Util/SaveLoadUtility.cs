@@ -1,18 +1,30 @@
 using System;
 using System.IO;
 using UnityEngine;
-
+using Newtonsoft.Json;
 public static class SaveLoadUtility
 {
-    public static readonly string inventoryFilePath = "/inventory.json";
+    public static readonly string inventoryFilePath = "inventory.json";
+
+    private static string GetFullPath(string fileName)
+    {
+#if UNITY_EDITOR
+        return Path.Combine(Application.dataPath, fileName);
+#elif UNITY_ANDROID
+        return Path.Combine(Application.persistentDataPath, fileName);
+#else
+        return Path.Combine(Application.persistentDataPath, fileName);
+#endif
+    }
 
     public static void SaveData<T>(T data, string fileName)
     {
         try
         {
-            string jsonData = JsonUtility.ToJson(data);
-            File.WriteAllText(Path.Combine(Application.persistentDataPath, fileName), jsonData);
-            Debugger.PrintLog($"{fileName} saved successfully.");
+            string fullPath = GetFullPath(fileName);
+            string jsonData = JsonConvert.SerializeObject(data);
+            File.WriteAllText(fullPath, jsonData);
+            Debugger.PrintLog($"{fullPath} saved successfully. data : {jsonData}");
         }
         catch (Exception ex)
         {
@@ -24,18 +36,18 @@ public static class SaveLoadUtility
     {
         try
         {
-            string filePath = Path.Combine(Application.persistentDataPath, fileName);
-            if (File.Exists(filePath))
+            string fullPath = GetFullPath(fileName);
+            if (File.Exists(fullPath))
             {
-                string jsonData = File.ReadAllText(filePath);
-                T data = JsonUtility.FromJson<T>(jsonData);
-                Debugger.PrintLog($"{fileName} loaded successfully.");
+                string jsonData = File.ReadAllText(fullPath);
+                T data = JsonConvert.DeserializeObject<T>(jsonData);
+                Debugger.PrintLog($"{fullPath} loaded successfully.");
                 return data;
             }
             else
             {
                 T data = new T();
-                SaveData(data, filePath);
+                SaveData(data, fullPath);
                 return data;
             }
         }

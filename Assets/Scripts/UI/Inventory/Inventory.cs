@@ -17,15 +17,9 @@ public class Inventory : MonoBehaviour
     {
         curInventoryData = SaveLoadUtility.LoadData<InventoryData>(SaveLoadUtility.inventoryFilePath);
 
-        if (curInventoryData.Items == null)
-        {
-            curInventoryData.Items = new List<Item>();
-        }
+        if (curInventoryData == null)
+            curInventoryData = new InventoryData();
 
-        if (curInventoryData.Currency == null)
-        {
-            curInventoryData.Currency = new CurrencyData();
-        }
     }
 
     private void OnDestroy()

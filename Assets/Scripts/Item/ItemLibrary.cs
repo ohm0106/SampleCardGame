@@ -78,10 +78,8 @@ public class ItemLibrary : MonoBehaviour
                     itemDictionary[item.itemName] = item;
                 }
 
-                // 진행률 콜백을 호출합니다.
                 onProgress?.Invoke((float)(i + 1) / totalItems);
 
-                // UI 업데이트를 허용하기 위해 Yield합니다.
                 await Task.Yield();
             }
         }

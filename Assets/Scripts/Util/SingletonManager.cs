@@ -21,20 +21,6 @@ public class SingletonManager : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-            InitializeManagers();
-        }
-        else if (_instance != this)
-        {
-            Destroy(gameObject);
-        }
-    }
-
     private LoadSceneManager _loadSceneManager;
 
     public LoadSceneManager LoadSceneManager
@@ -71,10 +57,41 @@ public class SingletonManager : MonoBehaviour
         }
     }
 
+    private StatIconLibrary _statIconLibrary;
+
+    public StatIconLibrary StatIconLibrary
+    {
+        get
+        {
+            if (_statIconLibrary == null)
+            {
+                _statIconLibrary = gameObject.GetComponent<StatIconLibrary>();
+                if (_inventory == null)
+                {
+                    _statIconLibrary = gameObject.AddComponent<StatIconLibrary>();
+                }
+            }
+            return _statIconLibrary;
+        }
+    }
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+            InitializeManagers();
+        }
+        else if (_instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
     private void InitializeManagers()
     {
         // LoadSceneManager와 Inventory 초기화
         _loadSceneManager = LoadSceneManager;
         _inventory = Inventory;
+        _statIconLibrary = StatIconLibrary;
     }
 }

@@ -13,10 +13,7 @@ public class InventoryList : MonoBehaviour
     GameObject slotPrefab;
 
     Slot[] slots;
-
-    // todo : 탭 (아이템 타입) 별 slot 관리 
-    // todo : GradeType 에 맞게 리스트 정렬 
-
+    
     void OnEnable()
     {
         InitializeSlots();

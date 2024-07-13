@@ -3,29 +3,26 @@ using TMPro;
 
 public static class CurrencyFormatter 
 {
-    public static string FormatCurrency(int amount)
+    public static string FormatCurrency(long amount)
     {
-        if (amount >= 1000000000000)
+        if (amount >= 1000000000)
         {
-            return (amount / 1000000000000f).ToString("0.##") + "T";
-        }
-        else if (amount >= 1000000000)
-        {
-            return (amount / 1000000000f).ToString("0.##") + "B";
+            return FormatWithCommas((amount / 1000000000f).ToString("0.##")) + "B";
         }
         else if (amount >= 1000000)
         {
-            return (amount / 1000000f).ToString("0.##") + "M";
+            return FormatWithCommas((amount / 1000000f).ToString("0.##")) + "M";
         }
         else if (amount >= 1000)
         {
-            return (amount / 1000f).ToString("0.##") + "K";
+            return FormatWithCommas((amount / 1000f).ToString("0.##")) + "K";
         }
         else
         {
-            return amount.ToString("N0");
+            return FormatWithCommas(amount.ToString("N0"));
         }
     }
+
 
     private static string FormatWithCommas(string value)
     {

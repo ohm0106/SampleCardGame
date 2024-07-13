@@ -6,22 +6,11 @@ public static class SaveLoadUtility
 {
     public static readonly string inventoryFilePath = "inventory.json";
 
-    private static string GetFullPath(string fileName)
-    {
-#if UNITY_EDITOR
-        return Path.Combine(Application.dataPath, fileName);
-#elif UNITY_ANDROID
-        return Path.Combine(Application.persistentDataPath, fileName);
-#else
-        return Path.Combine(Application.persistentDataPath, fileName);
-#endif
-    }
-
     public static void SaveData<T>(T data, string fileName)
     {
         try
         {
-            string fullPath = GetFullPath(fileName);
+            string fullPath = Path.Combine(Application.persistentDataPath, fileName);
             string jsonData = JsonConvert.SerializeObject(data);
             File.WriteAllText(fullPath, jsonData);
             Debugger.PrintLog($"{fullPath} saved successfully. data : {jsonData}");
@@ -36,7 +25,7 @@ public static class SaveLoadUtility
     {
         try
         {
-            string fullPath = GetFullPath(fileName);
+            string fullPath = Path.Combine(Application.persistentDataPath, fileName);
             if (File.Exists(fullPath))
             {
                 string jsonData = File.ReadAllText(fullPath);

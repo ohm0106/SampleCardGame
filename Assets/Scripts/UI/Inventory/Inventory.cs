@@ -24,7 +24,7 @@ public class Inventory : MonoBehaviour
 
     private void OnDestroy()
     {
-        SaveLoadUtility.SaveData<InventoryData>(curInventoryData, SaveLoadUtility.inventoryFilePath);
+        //SaveLoadUtility.SaveData<InventoryData>(curInventoryData, SaveLoadUtility.inventoryFilePath);
     }
 
     #region æ∆¿Ã≈€

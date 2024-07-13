@@ -7,15 +7,18 @@ using DG.Tweening;
 public class ScrollFocusChecker : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 {
     [SerializeField]
-    private ScrollRect scrollRect;
+    RectTransform focusTab;
 
     [SerializeField]
-    private RectTransform content;
+    ScrollRect scrollRect;
 
     [SerializeField]
-    private List<RectTransform> items;
+    RectTransform content;
 
-    private bool isDragging;
+    [SerializeField]
+    List<RectTransform> items;
+
+    bool isDragging;
 
     private void Start()
     {
@@ -24,7 +27,7 @@ public class ScrollFocusChecker : MonoBehaviour, IBeginDragHandler, IEndDragHand
             scrollRect = GetComponent<ScrollRect>();
             if (scrollRect == null)
             {
-                Debug.LogError("ScrollRect component not found.");
+                Debugger.PrintLog("ScrollRect component not found.");
                 return;
             }
         }
@@ -34,7 +37,7 @@ public class ScrollFocusChecker : MonoBehaviour, IBeginDragHandler, IEndDragHand
             content = scrollRect.content;
             if (content == null)
             {
-                Debug.LogError("Content not assigned or found in ScrollRect.");
+                Debugger.PrintLog("Content not assigned or found in ScrollRect.",LogType.Error);
                 return;
             }
         }
@@ -77,9 +80,11 @@ public class ScrollFocusChecker : MonoBehaviour, IBeginDragHandler, IEndDragHand
         CheckFocus();
     }
 
+    RectTransform preClosestItem = null;
+
     private void CheckFocus()
     {
-        RectTransform closestItem = null;
+        RectTransform curClosestItem = null;
         float closestDistance = float.MaxValue;
 
         Vector3[] scrollRectCorners = new Vector3[4];
@@ -92,34 +97,29 @@ public class ScrollFocusChecker : MonoBehaviour, IBeginDragHandler, IEndDragHand
             if (distance < closestDistance)
             {
                 closestDistance = distance;
-                closestItem = item;
+                curClosestItem = item;
             }
         }
 
-        if (closestItem != null)
+        if (curClosestItem != preClosestItem)
         {
-            Debugger.PrintLog($"Item {closestItem.name} is in focus");
+            foreach (var item in items)
+            {
+                ShopScrollItem temp = item.GetComponent<ShopScrollItem>();
+                if (curClosestItem != item)
+                {
+
+                    temp.Release();
+                }
+                else
+                {
+                    focusTab.anchoredPosition = new Vector3(temp.GetTabRect().anchoredPosition.x, focusTab.anchoredPosition.y, 0);
+                }
+            }
+            preClosestItem = curClosestItem;
         }
+      
+     
     }
 
-    public void ScrollToItem(int itemIndex)
-    {
-        if (itemIndex < 0 || itemIndex >= items.Count)
-        {
-            Debugger.PrintLog("Invalid item index",LogType.Warning);
-            return;
-        }
-
-        RectTransform targetItem = items[itemIndex];
-        Canvas.ForceUpdateCanvases();
-
-        float contentHeight = content.rect.height;
-        float viewportHeight = scrollRect.viewport.rect.height;
-        float itemCenterY = targetItem.localPosition.y + (targetItem.rect.height / 2);
-
-        float normalizedPositionY = (itemCenterY - (viewportHeight / 2)) / (contentHeight - viewportHeight);
-        normalizedPositionY = Mathf.Clamp01(1 - normalizedPositionY);
-
-        DOTween.To(() => scrollRect.verticalNormalizedPosition, x => scrollRect.verticalNormalizedPosition = x, normalizedPositionY, 0.5f).SetEase(Ease.InOutQuad);
-    }
 }

@@ -14,9 +14,9 @@ public class ItemInfomation : MonoBehaviour
     [SerializeField]
     TMP_Text info;
     [SerializeField]
-    TMP_Text attackDamage;
+    TMP_Text stat_text1;
     [SerializeField]
-    TMP_Text defenseDamage;
+    TMP_Text stat_text2;
     [SerializeField]
     TMP_Text price;
     [SerializeField]
@@ -42,8 +42,9 @@ public class ItemInfomation : MonoBehaviour
         grade.text = tempItemSO.gradeType.ToString();
         name.text = tempItemSO.itemName;
         info.text = tempItemSO.description;
-        attackDamage.text = "+" + tempItemSO.critical;
-        defenseDamage.text = "+" + tempItemSO.defense;
+        // 각 등록된 stat 에 따라 변경할 것. 
+        //attackDamage.text = "+" + tempItemSO.critical;
+        //defenseDamage.text = "+" + tempItemSO.defense;
         price.text = tempItemSO.price.ToString();
         slot.UpdateSlot(item);
     }
@@ -57,8 +58,8 @@ public class ItemInfomation : MonoBehaviour
         grade.text = "";
         name.text = "";
         info.text = "";
-        attackDamage.text = "";
-        defenseDamage.text = "";
+        //attackDamage.text = "";
+        //defenseDamage.text = "";
         price.text = "";
         slot.ClearSlot();
     }

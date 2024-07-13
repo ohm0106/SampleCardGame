@@ -14,9 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Pumkin
   price: 200
-  itemType: 32
-  gradeType: 0
-  defense: 0
-  critical: 0
+  itemType: 4
+  gradeType: 2
+  stats:
+  - statType: 1
+    value: 20
+  - statType: 2
+    value: 10
   icon: {fileID: 21300000, guid: 12aeed38be02a418590ffc45a09f0bdd, type: 3}
   description: A Halloween pumpkin.

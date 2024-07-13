@@ -16,7 +16,6 @@ MonoBehaviour:
   price: 150
   itemType: 16
   gradeType: 0
-  defense: 0
-  critical: 0
+  stats: []
   icon: {fileID: 21300000, guid: 5a0d82360083945039a386d0b8ed300f, type: 3}
   description: A yellow potion.

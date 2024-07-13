@@ -16,7 +16,6 @@ MonoBehaviour:
   price: 30
   itemType: 32
   gradeType: 0
-  defense: 0
-  critical: 0
+  stats: []
   icon: {fileID: 21300000, guid: 5fa91b7cb446d449883d9c1282420086, type: 3}
   description: A basic nut.

@@ -16,7 +16,10 @@ MonoBehaviour:
   price: 200
   itemType: 4
   gradeType: 0
-  defense: 5
-  critical: 0
+  stats:
+  - statType: 1
+    value: 3
+  - statType: 0
+    value: 1
   icon: {fileID: 21300000, guid: 44f2803dad0404cbeb9ee038d70da104, type: 3}
   description: A pair of sturdy boots.

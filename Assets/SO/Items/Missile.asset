@@ -16,7 +16,8 @@ MonoBehaviour:
   price: 400
   itemType: 1
   gradeType: 1
-  defense: 0
-  critical: 15
+  stats:
+  - statType: 3
+    value: 50
   icon: {fileID: 21300000, guid: 86f26d1801a474506a9d618fc1d0f246, type: 3}
   description: A powerful missile.

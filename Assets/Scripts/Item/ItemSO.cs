@@ -8,9 +8,10 @@ public class ItemSO : ScriptableObject
     public int price;
     public ItemType itemType;
     public GradeType gradeType;
-    // Stat
-    public int defense;
-    public int critical;
+
+    [Header("Stats")]
+    public Stat[] stats;
+
     public Sprite icon;
     public string description;
 }
@@ -28,10 +29,26 @@ public enum ItemType
     All = int.MaxValue
 }
 
+public enum StatType
+{
+    Critical,
+    Defense,
+    Health,
+    AttackDamage,
+    MoveSpeed
+}
+
 public enum GradeType
 {
     COMMON,
     EPIC,
     RARE,
     LEGENDARY
+}
+
+[System.Serializable]
+public class Stat
+{
+    public StatType statType;
+    public int value;
 }

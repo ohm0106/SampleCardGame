@@ -18,8 +18,8 @@ public class Slot : MonoBehaviour
     public void UpdateSlot(Item curItem)
     {
         Slot_item.gameObject.SetActive(true); 
-        Sprite itemIcon = ItemLibrary.Instance.GetItem(curItem.Name).icon;
-        Slot_item.sprite = ItemLibrary.Instance.GetSlotImg(ItemLibrary.Instance.GetItem(curItem.Name).gradeType); // todo 
+        Sprite itemIcon = ResourceLibrary.Instance.ItemLibrary.GetItem(curItem.Name).icon;
+        Slot_item.sprite = ResourceLibrary.Instance.ItemLibrary.GetSlotImg(ResourceLibrary.Instance.ItemLibrary.GetItem(curItem.Name).gradeType); // todo 
         ItemIcon.sprite = itemIcon;
         if (curItem.Quantity > 1)
             itemQuantity.text = $"{curItem.Quantity}";

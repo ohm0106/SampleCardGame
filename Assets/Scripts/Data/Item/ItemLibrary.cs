@@ -7,26 +7,6 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class ItemLibrary : MonoBehaviour
 {
-    private static ItemLibrary _instance;
-
-    public static ItemLibrary Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType<ItemLibrary>();
-                if (_instance == null)
-                {
-                    GameObject singletonObject = new GameObject(nameof(ItemLibrary));
-                    _instance = singletonObject.AddComponent<ItemLibrary>();
-                    DontDestroyOnLoad(singletonObject);
-                }
-            }
-            return _instance;
-        }
-    }
-
     private Dictionary<string, ItemSO> itemDictionary = new Dictionary<string, ItemSO>();
 
 
@@ -40,18 +20,6 @@ public class ItemLibrary : MonoBehaviour
     [SerializeField]
     SlotImg[] slotImg;
 
-    private void Awake()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (_instance != this)
-        {
-            Destroy(gameObject);
-        }
-    }
 
     public async Task LoadAllItemsAsync(Action<float> onProgress)
     {

@@ -31,7 +31,12 @@ public class LoadSceneManager : MonoBehaviour
             loadingSlider.SetSlider(0.2f, "Loading Items...");
         }
 
-        await ItemLibrary.Instance.LoadAllItemsAsync(progress =>
+        if (loadingSlider != null)
+        {
+            loadingSlider.SetSlider(0.4f, "Items Loaded.");
+        }
+
+        await ResourceLibrary.Instance.ItemLibrary.LoadAllItemsAsync(progress =>
         {
             if (loadingSlider != null)
             {
@@ -41,8 +46,18 @@ public class LoadSceneManager : MonoBehaviour
 
         if (loadingSlider != null)
         {
-            loadingSlider.SetSlider(0.4f, "Items Loaded.");
+            loadingSlider.SetSlider(0.6f, "Character Loaded.");
         }
+        await ResourceLibrary.Instance.CharacterLibrary.LoadAllItemsAsync(progress =>
+        {
+            if (loadingSlider != null)
+            {
+                loadingSlider.SetSlider(progress * 0.2f + 0.2f, "Loading Items...");
+            }
+
+        });
+
+      
 
         AsyncOperation op = SceneManager.LoadSceneAsync(m_NextScene);
         op.allowSceneActivation = false;

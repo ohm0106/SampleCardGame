@@ -32,6 +32,8 @@
 /[Aa]ssets/Layer Lab*
 /[Aa]ssets/Settings/
 /[Aa]ssets/Settings*
+/[Aa]ssets/SO/
+/[Aa]ssets/SO*
 
 # Ignore UniRx
 /[Aa]ssets/[Pp]lugins/UniRx/

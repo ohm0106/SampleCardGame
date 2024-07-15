@@ -1,6 +1,7 @@
 using UnityEngine;
 public class SingletonManager : MonoBehaviour
 {
+    
     private static SingletonManager _instance;
 
     public static SingletonManager Instance
@@ -12,7 +13,8 @@ public class SingletonManager : MonoBehaviour
                 _instance = FindObjectOfType<SingletonManager>();
                 if (_instance == null)
                 {
-                    GameObject singletonObject = new GameObject(nameof(SingletonManager));
+                    GameObject temp = (GameObject)Resources.Load("SingletonManager");
+                    GameObject singletonObject = Instantiate(temp);
                     _instance = singletonObject.AddComponent<SingletonManager>();
                     DontDestroyOnLoad(singletonObject);
                 }
@@ -57,23 +59,6 @@ public class SingletonManager : MonoBehaviour
         }
     }
 
-    private StatIconLibrary _statIconLibrary;
-
-    public StatIconLibrary StatIconLibrary
-    {
-        get
-        {
-            if (_statIconLibrary == null)
-            {
-                _statIconLibrary = gameObject.GetComponent<StatIconLibrary>();
-                if (_inventory == null)
-                {
-                    _statIconLibrary = gameObject.AddComponent<StatIconLibrary>();
-                }
-            }
-            return _statIconLibrary;
-        }
-    }
     private void Awake()
     {
         if (_instance == null)
@@ -92,6 +77,6 @@ public class SingletonManager : MonoBehaviour
         // LoadSceneManager와 Inventory 초기화
         _loadSceneManager = LoadSceneManager;
         _inventory = Inventory;
-        _statIconLibrary = StatIconLibrary;
+       
     }
 }

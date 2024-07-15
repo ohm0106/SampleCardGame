@@ -67,7 +67,7 @@ public class Inventory : MonoBehaviour
 
     public List<Item> GetItemsByTypes(List<ItemType> itemTypes)
     {
-        return curInventoryData.Items.FindAll(item => itemTypes.Contains(ItemLibrary.Instance.GetItem(item.Name).itemType));
+        return curInventoryData.Items.FindAll(item => itemTypes.Contains(ResourceLibrary.Instance.ItemLibrary.GetItem(item.Name).itemType));
     }
 
     public List<Item> GetCurItemsData()

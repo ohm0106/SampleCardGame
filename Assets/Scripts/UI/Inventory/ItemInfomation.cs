@@ -28,7 +28,7 @@ public class ItemInfomation : MonoBehaviour
 
     public void SetUI(Item item)
     {
-        ItemSO tempItemSO = ItemLibrary.Instance.GetItem(item.Name);
+        ItemSO tempItemSO = ResourceLibrary.Instance.ItemLibrary.GetItem(item.Name);
 
         if (tempItemSO == null)
         {
@@ -48,12 +48,12 @@ public class ItemInfomation : MonoBehaviour
         {
             if(i < statBars.Length)
             {
-                statBars[i].SetStat(SingletonManager.Instance.StatIconLibrary.GetStatIcon(tempItemSO.stats[i].statType).icon, tempItemSO.stats[i]);
+                statBars[i].SetStat(ResourceLibrary.Instance.StatIconLibrary.GetStatIcon(tempItemSO.stats[i].statType).icon, tempItemSO.stats[i]);
             }
             else
             {
                 StatBar created = Instantiate(statBars[0], statParent);
-                created.SetStat(SingletonManager.Instance.StatIconLibrary.GetStatIcon(tempItemSO.stats[i].statType).icon, tempItemSO.stats[i]);
+                created.SetStat(ResourceLibrary.Instance.StatIconLibrary.GetStatIcon(tempItemSO.stats[i].statType).icon, tempItemSO.stats[i]);
             }
         }
         

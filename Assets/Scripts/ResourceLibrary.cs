@@ -3,25 +3,49 @@ using UnityEngine;
 public class ResourceLibrary : MonoBehaviour
 {
     private static ResourceLibrary _instance;
+    private static readonly object _lock = new object();
+    private static bool _applicationIsQuitting = false;
 
     public static ResourceLibrary Instance
     {
         get
         {
-            if (_instance == null)
+            if (_applicationIsQuitting)
             {
-                _instance = FindObjectOfType<ResourceLibrary>();
+                Debug.LogWarning("[Singleton] Instance '" + typeof(ResourceLibrary) +
+                    "' already destroyed on application quit." +
+                    " Won't create again - returning null.");
+                return null;
+            }
+
+            lock (_lock)
+            {
                 if (_instance == null)
                 {
-                    GameObject temp = (GameObject)Resources.Load("ResourceManager");
-                    GameObject singletonObject = Instantiate(temp);
-                    _instance = singletonObject.AddComponent<ResourceLibrary>();
-                    DontDestroyOnLoad(singletonObject);
+                    _instance = FindObjectOfType<ResourceLibrary>();
+                    if (_instance == null)
+                    {
+                        GameObject singletonObject = Instantiate(Resources.Load<GameObject>("ResourceManager"));
+                        if (singletonObject != null)
+                        {
+                            _instance = singletonObject.GetComponent<ResourceLibrary>();
+                            if (_instance == null)
+                            {
+                                _instance = singletonObject.AddComponent<ResourceLibrary>();
+                            }
+                            DontDestroyOnLoad(singletonObject);
+                        }
+                        else
+                        {
+                            Debug.LogError("ResourceManager prefab not found in Resources.");
+                        }
+                    }
                 }
+                return _instance;
             }
-            return _instance;
         }
     }
+
     private void Awake()
     {
         if (_instance == null)
@@ -32,6 +56,14 @@ public class ResourceLibrary : MonoBehaviour
         else if (_instance != this)
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_instance == this)
+        {
+            _applicationIsQuitting = true;
         }
     }
 

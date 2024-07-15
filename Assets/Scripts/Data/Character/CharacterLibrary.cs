@@ -74,7 +74,7 @@ public class CharacterLibrary : MonoBehaviour
     {
         CharacterBaseSO character = GetCharacterBase(charactername);
 
-        return (Sprite)Resources.Load(character.spritePath);
+        return Resources.Load<Sprite>(character.spritePath);
     }
 
 

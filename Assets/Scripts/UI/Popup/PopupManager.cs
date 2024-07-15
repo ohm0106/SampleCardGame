@@ -53,7 +53,7 @@ public class PopupManager : Singleton<PopupManager>
         isPopupOn = true;
 
         // load popup
-        var popup = Resources.Load<GameObject>("Popup/" + type.ToString());
+        var popup = Resources.Load<GameObject>("Prefab/Popup/" + type.ToString());
 
         if (popup == null)
         {
@@ -111,7 +111,7 @@ public class PopupManager : Singleton<PopupManager>
         isPopupOn = true;
 
         // load popup
-        var popup = Resources.Load<GameObject>("Popup/" + type.ToString());
+        var popup = Resources.Load<GameObject>("Prefab/Popup/" + type.ToString());
 
         if (popup == null)
         {

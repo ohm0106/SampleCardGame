@@ -1,27 +1,74 @@
 using UnityEngine;
 public class SingletonManager : MonoBehaviour
 {
-    
+
     private static SingletonManager _instance;
+    private static readonly object _lock = new object();
+    private static bool _applicationIsQuitting = false;
 
     public static SingletonManager Instance
     {
         get
         {
-            if (_instance == null)
+            if (_applicationIsQuitting)
             {
-                _instance = FindObjectOfType<SingletonManager>();
+                Debug.LogWarning("[Singleton] Instance '" + typeof(SingletonManager) +
+                    "' already destroyed on application quit." +
+                    " Won't create again - returning null.");
+                return null;
+            }
+
+            lock (_lock)
+            {
                 if (_instance == null)
                 {
-                    GameObject temp = (GameObject)Resources.Load("SingletonManager");
-                    GameObject singletonObject = Instantiate(temp);
-                    _instance = singletonObject.AddComponent<SingletonManager>();
-                    DontDestroyOnLoad(singletonObject);
+                    _instance = FindObjectOfType<SingletonManager>();
+                    if (_instance == null)
+                    {
+                        GameObject temp = (GameObject)Resources.Load("SingletonManager");
+                        if (temp != null)
+                        {
+                            GameObject singletonObject = Instantiate(temp);
+                            _instance = singletonObject.GetComponent<SingletonManager>();
+                            if (_instance == null)
+                            {
+                                _instance = singletonObject.AddComponent<SingletonManager>();
+                            }
+                            DontDestroyOnLoad(singletonObject);
+                        }
+                        else
+                        {
+                            Debug.LogError("SingletonManager prefab not found in Resources.");
+                        }
+                    }
                 }
+                return _instance;
             }
-            return _instance;
         }
     }
+
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+            InitializeManagers();
+        }
+        else if (_instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_instance == this)
+        {
+            _applicationIsQuitting = true;
+        }
+    }
+
 
     private LoadSceneManager _loadSceneManager;
 
@@ -59,19 +106,6 @@ public class SingletonManager : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-            InitializeManagers();
-        }
-        else if (_instance != this)
-        {
-            Destroy(gameObject);
-        }
-    }
     private void InitializeManagers()
     {
         // LoadSceneManager와 Inventory 초기화

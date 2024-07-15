@@ -71,7 +71,7 @@ public class CreateItemSO
         newItem.itemType = itemType;
         newItem.gradeType = gradeType;
         newItem.stats = stats;
-        newItem.icon = Resources.Load<Sprite>($"ItemIcons/Icon_{name}");
+        newItem.icon = Resources.Load<Sprite>($"Sprite/ItemIcons/Icon_{name}");
         newItem.description = description;
         return newItem;
     }

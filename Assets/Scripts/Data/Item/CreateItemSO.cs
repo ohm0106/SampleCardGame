@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.AddressableAssets;
+using UnityEditor.AddressableAssets.Settings;
 using System.Collections.Generic;
 using System.IO;
 
@@ -44,8 +46,12 @@ public class CreateItemSO
     {
         foreach (var item in items)
         {
-            AssetDatabase.CreateAsset(item, $"Assets/SO/Items/{item.itemName}.asset");
+            string assetPath = $"Assets/SO/Items/{item.itemName}.asset";
+            AssetDatabase.CreateAsset(item, assetPath);
+
+            AddAddressableAsset(item, assetPath, "ItemGroup", new List<string> { "ItemGroup" });
         }
+
 
         AssetDatabase.SaveAssets();
     }
@@ -74,5 +80,31 @@ public class CreateItemSO
         newItem.icon = Resources.Load<Sprite>($"Sprite/ItemIcons/Icon_{name}");
         newItem.description = description;
         return newItem;
+    }
+
+    private static void AddAddressableAsset(ScriptableObject asset, string assetPath, string groupName, List<string> labels)
+    {
+        AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.Settings;
+
+        AddressableAssetGroup group = settings.FindGroup(groupName);
+        if (group == null)
+        {
+            group = settings.CreateGroup(groupName, false, false, false, settings.DefaultGroup.Schemas);
+        }
+
+        AddressableAssetEntry entry = settings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID(assetPath), group);
+        entry.address = asset.name;
+
+        foreach (var label in labels)
+        {
+            if (!settings.GetLabels().Contains(label))
+            {
+                settings.AddLabel(label);
+            }
+            entry.SetLabel(label, true);
+        }
+
+        settings.SetDirty(AddressableAssetSettings.ModificationEvent.EntryMoved, entry, true);
+        AssetDatabase.SaveAssets();
     }
 }

@@ -3,6 +3,8 @@ using UnityEditor;
 using System.Collections.Generic;
 using System.IO;
 using System;
+using UnityEditor.AddressableAssets.Settings;
+using UnityEditor.AddressableAssets;
 
 public class CreateCharacterSO
 {
@@ -45,7 +47,11 @@ public class CreateCharacterSO
                 newCharacter.defaultUpgradeCost = characterData.defaultUpgradeCost;
                 newCharacter.description = characterData.description;
 
-                AssetDatabase.CreateAsset(newCharacter, $"Assets/SO/Characters/{newCharacter.name}.asset");
+
+                string assetPath = $"Assets/SO/Characters/{newCharacter.name}.asset";
+                AssetDatabase.CreateAsset(newCharacter, assetPath);
+
+                AddAddressableAsset(newCharacter, assetPath, "CharacterGroup", new List<string> { "CharacterGroup" });
             }
 
             AssetDatabase.SaveAssets();
@@ -68,7 +74,31 @@ public class CreateCharacterSO
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
+    private static void AddAddressableAsset(ScriptableObject asset, string assetPath, string groupName, List<string> labels)
+    {
+        AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.Settings;
 
+        AddressableAssetGroup group = settings.FindGroup(groupName);
+        if (group == null)
+        {
+            group = settings.CreateGroup(groupName, false, false, false, settings.DefaultGroup.Schemas);
+        }
+
+        AddressableAssetEntry entry = settings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID(assetPath), group);
+        entry.address = asset.name;
+
+        foreach (var label in labels)
+        {
+            if (!settings.GetLabels().Contains(label))
+            {
+                settings.AddLabel(label);
+            }
+            entry.SetLabel(label, true);
+        }
+
+        settings.SetDirty(AddressableAssetSettings.ModificationEvent.EntryMoved, entry, true);
+        AssetDatabase.SaveAssets();
+    }
 }
 
 [Serializable]

@@ -22,48 +22,59 @@ public class LoadSceneManager : MonoBehaviour
         if (loadingSlider == null)
         {
             await Task.Delay(500);
-            loadingSlider = FindAnyObjectByType<LoadingSlider>();
+            loadingSlider = FindObjectOfType<LoadingSlider>();
         }
 
         if (loadingSlider != null)
         {
             loadingSlider.SetSlider(0, "Initializing...");
+        }
+
+        if (loadingSlider != null)
+        {
             loadingSlider.SetSlider(0.2f, "Loading Items...");
         }
+
+        float itemLoadProgress = 0f;
+        await ResourceLibrary.Instance.ItemLibrary.LoadAllItemsAsync(progress =>
+        {
+            itemLoadProgress = progress;
+            if (loadingSlider != null)
+            {
+                loadingSlider.SetSlider(itemLoadProgress * 0.2f + 0.2f, "Loading Items...");
+            }
+        });
 
         if (loadingSlider != null)
         {
             loadingSlider.SetSlider(0.4f, "Items Loaded.");
         }
 
-        await ResourceLibrary.Instance.ItemLibrary.LoadAllItemsAsync(progress =>
+        if (loadingSlider != null)
         {
+            loadingSlider.SetSlider(0.6f, "Loading Characters...");
+        }
+
+        float characterLoadProgress = 0f;
+        await ResourceLibrary.Instance.CharacterLibrary.LoadAllItemsAsync(progress =>
+        {
+            characterLoadProgress = progress;
             if (loadingSlider != null)
             {
-                loadingSlider.SetSlider(progress * 0.2f + 0.2f, "Loading Items...");
+                loadingSlider.SetSlider(characterLoadProgress * 0.2f + 0.6f, "Loading Characters...");
             }
         });
 
         if (loadingSlider != null)
         {
-            loadingSlider.SetSlider(0.6f, "Character Loaded.");
+            loadingSlider.SetSlider(0.8f, "Characters Loaded.");
         }
-        await ResourceLibrary.Instance.CharacterLibrary.LoadAllItemsAsync(progress =>
-        {
-            if (loadingSlider != null)
-            {
-                loadingSlider.SetSlider(progress * 0.2f + 0.2f, "Loading Items...");
-            }
 
-        });
-
-      
-
+        // Load scene
         AsyncOperation op = SceneManager.LoadSceneAsync(m_NextScene);
         op.allowSceneActivation = false;
 
         float timer = 0.0f;
-
         while (!op.isDone)
         {
             await Task.Yield();
@@ -72,7 +83,7 @@ public class LoadSceneManager : MonoBehaviour
             float progress = Mathf.Clamp01(op.progress / 0.9f);
             if (loadingSlider != null)
             {
-                loadingSlider.SetSlider(progress * 0.6f + 0.4f, "Loading Scene...");
+                loadingSlider.SetSlider(progress * 0.2f + 0.8f, "Loading Scene...");
             }
 
             if (progress >= 1f)
@@ -86,6 +97,5 @@ public class LoadSceneManager : MonoBehaviour
         }
 
         await Task.Yield();
-         
     }
 }

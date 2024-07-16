@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 public static class SaveLoadUtility
 {
     public static readonly string inventoryFilePath = "inventory.json";
+    public static readonly string deckFilePath = "deck.json";
 
     public static void SaveData<T>(T data, string fileName)
     {

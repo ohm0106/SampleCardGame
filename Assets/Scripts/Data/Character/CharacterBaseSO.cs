@@ -25,7 +25,7 @@ public enum CharacterType
     Knight
 }
 
-
+//TODO ; SKill ¹× Rune ¼³Á¤
 [Serializable]
 public class Skill
 {
@@ -40,21 +40,3 @@ public class Rune
     public int runeLevel;
 }
 
-[Serializable]
-public class Character
-{
-    public string name;
-    public int star;
-    
-    public int Level;
-    public int LevelAmount;
-
-    public List<Stat> stats;
-
-    public int runePossibleCount;
-    public int runMaxCount;
-    public List<Rune> runes;
-
-    public int curCost;
-    public int curUpgradeCost;
-}

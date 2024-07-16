@@ -21,7 +21,7 @@ public class LoadingSlider : MonoBehaviour
     public void SetSlider(float progress)
     {
         if (txtProgress != null)
-            txtProgress.text = $"Loading...%{progress * 100:0}%"; 
+            txtProgress.text = $"Loading...{progress * 100:0}%"; 
 
         if (slider != null)
             slider.value = progress; 
@@ -30,7 +30,7 @@ public class LoadingSlider : MonoBehaviour
     public void SetSlider(float progress, string status = "")
     {
         if (txtProgress != null)
-            txtProgress.text = $"Loading... {progress * 100:0}%";
+            txtProgress.text = $"{status} {progress * 100:0}% ";
 
         if (slider != null)
             slider.value = progress;

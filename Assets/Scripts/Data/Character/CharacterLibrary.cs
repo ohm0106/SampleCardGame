@@ -76,8 +76,10 @@ public class CharacterLibrary : MonoBehaviour
 
         return Resources.Load<Sprite>(character.spritePath);
     }
-
-
+    public List<CharacterBaseSO> GetCharacterBaseList()
+    {
+        return new List<CharacterBaseSO>(characterDictionary.Values);
+    }
 
     public Sprite GetSlotImg(GradeType type)
     {

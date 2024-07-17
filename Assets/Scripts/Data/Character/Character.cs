@@ -5,7 +5,7 @@ using UnityEngine;
 [Serializable]
 public class Character
 {
-    string id;
+    public string id;
 
     public string name;
 
@@ -13,13 +13,9 @@ public class Character
 
     public int Level;
 
-    public int deckCount;
-
     public List<Stat> stats;
 
     public List<Rune> runes;
-
-    public int curUpgradeCost;
 
     public Character()
     {
@@ -41,4 +37,18 @@ public class DeckData
     public List<Character> characters;
 
     // 가지고 있는 룬
+
+
+    public List<Character> GetCharacterList()
+    {
+        if (characters.Count == 0)
+            return new List<Character>();
+
+        return characters;
+    }
+
+    public void SetCharactersFromList(List<Character> characterList)
+    {
+        characters = characterList;
+    }
 }

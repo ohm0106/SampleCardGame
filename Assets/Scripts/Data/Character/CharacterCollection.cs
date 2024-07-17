@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterCollection : MonoBehaviour
 {
-    public Dictionary<string, Character> characters;
+    public Dictionary<string, Character> characters = new Dictionary<string, Character>();
 
     public event Action<Character> onRemoveCharacter;
     public event Action<Character> onAddCharacter;
@@ -35,7 +35,6 @@ public class CharacterCollection : MonoBehaviour
         }
     }
 
-
     public void RemoveCharacter(string id)
     {
         if (characters.ContainsKey(id))
@@ -46,13 +45,18 @@ public class CharacterCollection : MonoBehaviour
         }
     }
 
-    List<Character> GetCharacterList()
+    public List<Character> GetCharacterList()
     {
         return new List<Character>(characters.Values);
     }
-    void SetCharactersFromList(DeckData deckData)
+
+    public void SetCharactersFromList(DeckData deckData)
     {
         characters.Clear();
+
+        if (deckData.characters.Count == 0)
+            return;
+
         foreach (var character in deckData.characters)
         {
             characters[character.GetGUID()] = character;

@@ -1,59 +1,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryList : MonoBehaviour
+public class InventoryList : BaseUIList<Item, Slot>
 {
-    [SerializeField]
-    int inventorySize = 50;
-
-    [SerializeField]
-    Transform scrollRect;
-
-    [SerializeField]
-    GameObject slotPrefab;
-
-    Slot[] slots;
-    
-    void OnEnable()
+    protected override void SubscribeToEvents()
     {
-        InitializeSlots();
         SingletonManager.Instance.Inventory.onAddItem += UpdateInventoryUI;
         SingletonManager.Instance.Inventory.onRemoveItem += DeleteInventoryUI;
     }
 
-    void OnDisable()
+    protected override void UnsubscribeFromEvents()
     {
-        ClearAllSlots();
         SingletonManager.Instance.Inventory.onAddItem -= UpdateInventoryUI;
         SingletonManager.Instance.Inventory.onRemoveItem -= DeleteInventoryUI;
     }
 
-    void InitializeSlots()
+    protected override List<Item> GetItems()
     {
-        if (slots != null)
-            return;
+        return SingletonManager.Instance.Inventory.GetCurItemsData();
+    }
 
-        slots = new Slot[inventorySize];
+    protected override void UpdateSlot(Slot slot, Item item)
+    {
+        slot.UpdateSlot(item);
+    }
 
-        var itemsInfo = SingletonManager.Instance.Inventory.GetCurItemsData();
+    protected override void ClearSlot(Slot slot)
+    {
+        slot.ClearSlot();
+    }
 
-        for (int i = 0; i < inventorySize; i++)
-        {
-            GameObject slotObj = Instantiate(slotPrefab, scrollRect);
-            slots[i] = slotObj.GetComponent<Slot>();
+    protected override bool IsSlotFilled(Slot slot)
+    {
+        return slot.GetItem() != null;
+    }
 
-            if (i < itemsInfo.Count)
-            {
-                Item tempItem = itemsInfo[i];
-                slots[i].UpdateSlot(tempItem);
-            }
-            else
-            {
-                slots[i].ClearSlot();
-            }
-        }
-
-        ReorganizeSlots();
+    protected override int CompareSlots(Slot a, Slot b)
+    {
+        return b.GetItem().GradeType.CompareTo(a.GetItem().GradeType);
     }
 
     public void UpdateInventoryUI(Item newItem)
@@ -99,9 +83,8 @@ public class InventoryList : MonoBehaviour
                 break;
             }
         }
-
-    
     }
+
     public void FilterItemsByType(List<ItemType> itemTypes)
     {
         ClearAllSlots();
@@ -110,7 +93,7 @@ public class InventoryList : MonoBehaviour
 
         Debug.Log("check item By Type " + itemsByType.Count);
 
-        for (int i = 0; i < itemsByType.Count && i < inventorySize; i++)
+        for (int i = 0; i < itemsByType.Count && i < listSize; i++)
         {
             Item tempItem = itemsByType[i];
             slots[i].UpdateSlot(tempItem);
@@ -118,48 +101,6 @@ public class InventoryList : MonoBehaviour
 
         ReorganizeSlots();
     }
-
-    void ReorganizeSlots()
-    {
-        List<Slot> filledSlots = new List<Slot>();
-        List<Slot> emptySlots = new List<Slot>();
-
-        foreach (var slot in slots)
-        {
-            if (slot.GetItem() != null)
-            {
-                filledSlots.Add(slot);
-            }
-            else
-            {
-                emptySlots.Add(slot);
-            }
-        }
-
-        filledSlots.Sort((a, b) => b.GetItem().GradeType.CompareTo(a.GetItem().GradeType));
-
-        int index = 0;
-        foreach (var slot in filledSlots)
-        {
-            slots[index] = slot;
-            slots[index].transform.SetSiblingIndex(index);
-            index++;
-        }
-
-        foreach (var slot in emptySlots)
-        {
-            slots[index] = slot;
-            slots[index].transform.SetSiblingIndex(index);
-            index++;
-        }
-    }
-
-    void ClearAllSlots()
-    {
-        foreach (var slot in slots)
-        {
-            slot.ClearSlot();
-        }
-    }
-
 }
+
+

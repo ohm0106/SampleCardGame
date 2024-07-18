@@ -1,7 +1,7 @@
 using UnityEngine;
+
 public class SingletonManager : MonoBehaviour
 {
-
     private static SingletonManager _instance;
     private static readonly object _lock = new object();
     private static bool _applicationIsQuitting = false;
@@ -12,9 +12,9 @@ public class SingletonManager : MonoBehaviour
         {
             if (_applicationIsQuitting)
             {
-                Debug.LogWarning("[Singleton] Instance '" + typeof(SingletonManager) +
+                 Debugger.PrintLog("[Singleton] Instance '" + typeof(SingletonManager) +
                     "' already destroyed on application quit." +
-                    " Won't create again - returning null.");
+                    " Won't create again - returning null.", LogType.Warning);
                 return null;
             }
 
@@ -38,7 +38,7 @@ public class SingletonManager : MonoBehaviour
                         }
                         else
                         {
-                            Debug.LogError("SingletonManager prefab not found in Resources.");
+                            Debugger.PrintLog("SingletonManager prefab not found in Resources.",LogType.Error);
                         }
                     }
                 }
@@ -61,6 +61,11 @@ public class SingletonManager : MonoBehaviour
         }
     }
 
+    private void OnApplicationQuit()
+    {
+        _applicationIsQuitting = true;
+    }
+
     private void OnDestroy()
     {
         if (_instance == this)
@@ -68,7 +73,6 @@ public class SingletonManager : MonoBehaviour
             _applicationIsQuitting = true;
         }
     }
-
 
     private LoadSceneManager _loadSceneManager;
 
@@ -106,11 +110,28 @@ public class SingletonManager : MonoBehaviour
         }
     }
 
+    private CharacterCollection _characterCollection;
+
+    public CharacterCollection CharacterCollection
+    {
+        get
+        {
+            if (_characterCollection == null)
+            {
+                _characterCollection = gameObject.GetComponent<CharacterCollection>();
+                if (_characterCollection == null)
+                {
+                    _characterCollection = gameObject.AddComponent<CharacterCollection>();
+                }
+            }
+            return _characterCollection;
+        }
+    }
+
     private void InitializeManagers()
     {
-        // LoadSceneManager와 Inventory 초기화
         _loadSceneManager = LoadSceneManager;
         _inventory = Inventory;
-       
+        _characterCollection = CharacterCollection;
     }
 }

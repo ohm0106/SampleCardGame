@@ -43,7 +43,8 @@ public enum GradeType
     COMMON,
     EPIC,
     RARE,
-    LEGENDARY
+    LEGENDARY,
+    NONE
 }
 
 [System.Serializable]

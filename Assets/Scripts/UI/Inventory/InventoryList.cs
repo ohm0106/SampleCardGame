@@ -30,6 +30,9 @@ public class InventoryList : MonoBehaviour
 
     void InitializeSlots()
     {
+        if (slots != null)
+            return;
+
         slots = new Slot[inventorySize];
 
         var itemsInfo = SingletonManager.Instance.Inventory.GetCurItemsData();

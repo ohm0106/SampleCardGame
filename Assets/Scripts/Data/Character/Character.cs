@@ -11,7 +11,7 @@ public class Character
 
     public int star;
 
-    public int Level;
+    public int level;
 
     public List<Stat> stats;
 

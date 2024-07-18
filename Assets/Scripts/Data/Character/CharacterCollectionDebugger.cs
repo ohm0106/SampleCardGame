@@ -37,7 +37,7 @@ public class CharacterCollectionDebugger : MonoBehaviour
             {
                 name = selectedCharacterBaseSO.name,
                 star = newCharacterStar,
-                Level = newCharacterLevel,
+                level = newCharacterLevel,
                 stats = newCharacterStats.Count > 0 ? newCharacterStats : selectedCharacterBaseSO.stats,
                 runes = newCharacterRunes
             };

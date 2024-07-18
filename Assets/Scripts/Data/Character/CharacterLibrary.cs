@@ -19,9 +19,17 @@ public class CharacterLibrary : MonoBehaviour
         public Sprite sprite;
     }
 
+    public class CharacterTypeIcon
+    {
+        public CharacterType type;
+        public Sprite sprite;
+    }
+
     [SerializeField]
     SlotImg[] slotImg;
 
+    [SerializeField]
+    CharacterTypeIcon[] typeIcon;
 
     public async Task LoadAllItemsAsync(Action<float> onProgress)
     {
@@ -81,11 +89,12 @@ public class CharacterLibrary : MonoBehaviour
         return new List<CharacterBaseSO>(characterDictionary.Values);
     }
 
-    public Sprite GetSlotImg(GradeType type)
+    public Sprite GetSlotImg(string charactername)
     {
+        CharacterBaseSO character = GetCharacterBase(charactername);
         foreach (var arr in slotImg)
         {
-            if (arr.type == type)
+            if (arr.type == character.gradeType)
             {
                 return arr.sprite;
             }
@@ -94,5 +103,17 @@ public class CharacterLibrary : MonoBehaviour
         return null;
     }
 
+    public Sprite GetCharacterTypeIcon(string charactername)
+    {
+        CharacterBaseSO character = GetCharacterBase(charactername);
+        foreach (var arr in typeIcon)
+        {
+            if (arr.type == character.type)
+            {
+                return arr.sprite;
+            }
+        }
 
+        return null;
+    }
 }

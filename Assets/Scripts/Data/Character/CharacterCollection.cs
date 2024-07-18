@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class CharacterCollection : MonoBehaviour
 {
-    public Dictionary<string, Character> characters = new Dictionary<string, Character>();
+    public Dictionary<string, Character> decks = new Dictionary<string, Character>();
 
     public event Action<Character> onRemoveCharacter;
     public event Action<Character> onAddCharacter;
+
+    // todo ·é, ½ºÅÝ 
 
     private void Start()
     {
@@ -28,38 +30,46 @@ public class CharacterCollection : MonoBehaviour
     }
     public void AddCharacter(Character newCharacter)
     {
-        if (!characters.ContainsKey(newCharacter.GetGUID()))
+        if (!decks.ContainsKey(newCharacter.GetGUID()))
         {
-            characters[newCharacter.GetGUID()] = newCharacter;
+            decks[newCharacter.GetGUID()] = newCharacter;
             onAddCharacter?.Invoke(newCharacter);
         }
     }
 
     public void RemoveCharacter(string id)
     {
-        if (characters.ContainsKey(id))
+        if (decks.ContainsKey(id))
         {
-            characters.TryGetValue(id, out Character character);
-            characters.Remove(id);
+            decks.TryGetValue(id, out Character character);
+            decks.Remove(id);
             onRemoveCharacter?.Invoke(character);
+        }
+    }
+
+    public void GetCharacter(string id)
+    {
+        if (decks.ContainsKey(id))
+        {
+            decks.TryGetValue(id, out Character character);
         }
     }
 
     public List<Character> GetCharacterList()
     {
-        return new List<Character>(characters.Values);
+        return new List<Character>(decks.Values);
     }
 
     public void SetCharactersFromList(DeckData deckData)
     {
-        characters.Clear();
+        decks.Clear();
 
         if (deckData.characters.Count == 0)
             return;
 
         foreach (var character in deckData.characters)
         {
-            characters[character.GetGUID()] = character;
+            decks[character.GetGUID()] = character;
         }
     }
 }

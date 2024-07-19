@@ -1,6 +1,5 @@
 using UnityEngine;
 
-using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,6 +18,7 @@ public class CharacterLibrary : MonoBehaviour
         public Sprite sprite;
     }
 
+    [System.Serializable]
     public class CharacterTypeIcon
     {
         public CharacterType type;
@@ -81,8 +81,7 @@ public class CharacterLibrary : MonoBehaviour
     public Sprite GetCharacterImg(string charactername)
     {
         CharacterBaseSO character = GetCharacterBase(charactername);
-
-        return Resources.Load<Sprite>(character.spritePath);
+        return character.sprite;
     }
     public List<CharacterBaseSO> GetCharacterBaseList()
     {

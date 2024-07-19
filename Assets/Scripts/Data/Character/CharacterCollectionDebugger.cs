@@ -11,7 +11,7 @@ public class CharacterCollectionDebugger : MonoBehaviour
 
     public string selectedCharacterBaseSOName;
     private int newCharacterStar = 0;
-    private int newCharacterLevel = 0;
+    private int newCharacterLevel = 1;
     public int newCharacterDeckCount;
     public List<Stat> newCharacterStats = new List<Stat>();
     public List<Rune> newCharacterRunes = new List<Rune>();

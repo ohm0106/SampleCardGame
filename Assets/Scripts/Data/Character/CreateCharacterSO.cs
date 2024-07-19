@@ -23,7 +23,9 @@ public class CreateCharacterSO
                 CharacterBaseSO newCharacter = ScriptableObject.CreateInstance<CharacterBaseSO>();
                 newCharacter.name = characterData.name;
                 newCharacter.type = (CharacterType)Enum.Parse(typeof(CharacterType), characterData.type);
-                newCharacter.spritePath = characterData.spritePath;
+                string spritePath = $"Sprite/Characters/{characterData.spritePath}";
+                Debug.Log($"Loading sprite from path: {spritePath}");
+                newCharacter.sprite = Resources.Load<Sprite>(spritePath);
                 newCharacter.gradeType = (GradeType)Enum.Parse(typeof(GradeType), characterData.gradeType);
                 newCharacter.stats = new List<Stat>();
                 foreach (var stat in characterData.stats)

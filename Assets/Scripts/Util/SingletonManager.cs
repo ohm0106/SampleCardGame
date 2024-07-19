@@ -25,7 +25,7 @@ public class SingletonManager : MonoBehaviour
                     _instance = FindObjectOfType<SingletonManager>();
                     if (_instance == null)
                     {
-                        GameObject temp = (GameObject)Resources.Load("SingletonManager");
+                        GameObject temp = Resources.Load<GameObject>("SingletonManager");
                         if (temp != null)
                         {
                             GameObject singletonObject = Instantiate(temp);

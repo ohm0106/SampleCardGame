@@ -7,7 +7,7 @@ public class CharacterBaseSO : ScriptableObject
 {
     public string name;
     public CharacterType type;
-    public string spritePath;
+    public Sprite sprite;
     public GradeType gradeType;
     public List<Stat> stats;
     public List<Skill> skills;

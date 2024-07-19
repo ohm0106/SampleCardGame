@@ -7,6 +7,7 @@ public class CharacterSlot : MonoBehaviour
     string udid;
     [SerializeField]
     TMP_Text characterName;
+    [SerializeField]
     TMP_Text level;
 
     [SerializeField]
@@ -17,7 +18,6 @@ public class CharacterSlot : MonoBehaviour
     Image slotImg;
 
     int starCount;
-    // todo : star 
     bool isRelease;
 
     Sprite defaultSlot = default;
@@ -25,15 +25,12 @@ public class CharacterSlot : MonoBehaviour
     private void Start()
     {
         defaultSlot = slotImg.sprite;
-    }
-    private void OnEnable()
-    {
-        
+        udid = string.Empty;
     }
 
     public void UpdateSlot(Character character)
     {
-        udid = character.id;
+        udid = character.GetGUID();
         this.characterName.text = character.name;
         characterImg.sprite = ResourceLibrary.Instance.CharacterLibrary.GetCharacterImg(character.name);
         characterTypeIconImg.sprite = ResourceLibrary.Instance.CharacterLibrary.GetCharacterTypeIcon(character.name);
@@ -43,8 +40,9 @@ public class CharacterSlot : MonoBehaviour
 
         starCount = character.star;
         level.text = character.level.ToString();
-        // star set
-    } 
+
+        AdjustImageWidth();
+    }
 
     public void ClearSlot()
     {
@@ -55,13 +53,22 @@ public class CharacterSlot : MonoBehaviour
         isRelease = false;
 
         starCount = 0;
-        // star release 
     }
 
-    public string GetUDID()
+    public string GetGUID()
     {
         return udid;
     }
-    
-}
 
+    private void AdjustImageWidth()
+    {
+        if (characterImg.sprite == null)
+            return;
+
+        RectTransform rt = characterImg.GetComponent<RectTransform>();
+        float aspectRatio = characterImg.sprite.bounds.size.x / characterImg.sprite.bounds.size.y;
+
+        float fixedHeight = rt.rect.height;
+        rt.sizeDelta = new Vector2(fixedHeight * aspectRatio, fixedHeight);
+    }
+}

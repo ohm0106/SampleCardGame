@@ -47,6 +47,16 @@ public class CharacterCollection : MonoBehaviour
         }
     }
 
+    public void RemoveAllCharacters()
+    {
+        var characterList = GetCharacterList();
+        decks.Clear();
+        foreach (var character in characterList)
+        {
+            onRemoveCharacter?.Invoke(character);
+        }
+    }
+
     public void GetCharacter(string id)
     {
         if (decks.ContainsKey(id))

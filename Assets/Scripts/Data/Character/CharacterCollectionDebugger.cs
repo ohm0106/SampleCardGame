@@ -38,6 +38,7 @@ public class CharacterCollectionDebugger : MonoBehaviour
                 name = selectedCharacterBaseSO.name,
                 star = newCharacterStar,
                 level = newCharacterLevel,
+                experience = 0,                
                 stats = newCharacterStats.Count > 0 ? newCharacterStats : selectedCharacterBaseSO.stats,
                 runes = newCharacterRunes
             };
@@ -54,6 +55,12 @@ public class CharacterCollectionDebugger : MonoBehaviour
     {
         characterCollection.RemoveCharacter(id);
     }
+
+    public void RemoveAllCharacters()
+    {
+        characterCollection.RemoveAllCharacters();
+    }
+
 
     public void SaveCharacters()
     {

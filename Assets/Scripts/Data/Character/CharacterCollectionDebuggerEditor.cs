@@ -51,5 +51,9 @@ public class CharacterCollectionDebuggerEditor : Editor
         {
             debugger.LoadCharacters();
         }
+        if(GUILayout.Button("Remove All"))
+        {
+            debugger.RemoveAllCharacters();
+        }
     }
 }

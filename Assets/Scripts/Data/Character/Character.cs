@@ -13,6 +13,8 @@ public class Character
 
     public int level;
 
+    public int experience;
+
     public List<Stat> stats;
 
     public List<Rune> runes;

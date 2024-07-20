@@ -17,15 +17,17 @@ public class CharacterSlot : MonoBehaviour
     [SerializeField]
     Image slotImg;
 
-    int starCount;
-    bool isRelease;
+    LevelSlider levelSlider;
 
+    int starCount;
+    bool isEmpty;
     Sprite defaultSlot = default;
 
     private void Start()
     {
         defaultSlot = slotImg.sprite;
         udid = string.Empty;
+        levelSlider = GetComponent<LevelSlider>();
     }
 
     public void UpdateSlot(Character character)
@@ -36,10 +38,12 @@ public class CharacterSlot : MonoBehaviour
         characterTypeIconImg.sprite = ResourceLibrary.Instance.CharacterLibrary.GetCharacterTypeIcon(character.name);
         slotImg.sprite = ResourceLibrary.Instance.CharacterLibrary.GetSlotImg(character.name);
 
-        isRelease = true;
+        isEmpty = false;
 
         starCount = character.star;
         level.text = character.level.ToString();
+
+        levelSlider.UpdateLevelUI(character.level, character.experience, 9); // todo : 경험치 총량은 Static Data 에서 불러오도록 할 것! 
 
         AdjustImageWidth();
     }
@@ -50,7 +54,7 @@ public class CharacterSlot : MonoBehaviour
         characterImg.sprite = null;
         characterTypeIconImg.sprite = null;
         slotImg.sprite = defaultSlot;
-        isRelease = false;
+        isEmpty = true;
 
         starCount = 0;
     }
@@ -58,6 +62,11 @@ public class CharacterSlot : MonoBehaviour
     public string GetGUID()
     {
         return udid;
+    }
+
+    public bool GetSlotEmptyStatus()
+    {
+        return isEmpty;
     }
 
     private void AdjustImageWidth()

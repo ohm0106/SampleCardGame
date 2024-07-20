@@ -25,11 +25,21 @@ public class CharacterLibrary : MonoBehaviour
         public Sprite sprite;
     }
 
+    [System.Serializable]
+    public class CharacterLevelBadge
+    {
+      public BadgeType type;
+      public Sprite sprite;
+    }
+
     [SerializeField]
     SlotImg[] slotImg;
 
     [SerializeField]
     CharacterTypeIcon[] typeIcon;
+
+    [SerializeField]
+    CharacterLevelBadge[] levelBadges;
 
     public async Task LoadAllItemsAsync(Action<float> onProgress)
     {
@@ -108,6 +118,19 @@ public class CharacterLibrary : MonoBehaviour
         foreach (var arr in typeIcon)
         {
             if (arr.type == character.type)
+            {
+                return arr.sprite;
+            }
+        }
+
+        return null;
+    }
+
+    public Sprite GetLevelBadge(BadgeType type)
+    {
+        foreach(var arr in levelBadges)
+        {
+            if(type == arr.type)
             {
                 return arr.sprite;
             }

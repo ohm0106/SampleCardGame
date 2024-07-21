@@ -1,61 +1,71 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterUIList : MonoBehaviour
+public class CharacterUIList : BaseUIList<Character, CharacterSlot>
 {
-    int listSize = 50;
-
-
-    CharacterSlot[] slots;
-
-    [SerializeField]
-    GameObject slotPrefab;
-
-    [SerializeField]
-    Transform scrollContent;
-
-    void OnEnable()
+    protected override void SubscribeToEvents()
     {
-        InitializeSlots();
-        
+        SingletonManager.Instance.CharacterCollection.onAddCharacter += UpdateCharacterUI;
+        SingletonManager.Instance.CharacterCollection.onRemoveCharacter += DeleteCharacterUI;
     }
 
-    void OnDisable()
+    protected override void UnsubscribeFromEvents()
     {
-        ClearAllSlots();
+        SingletonManager.Instance.CharacterCollection.onAddCharacter -= UpdateCharacterUI;
+        SingletonManager.Instance.CharacterCollection.onRemoveCharacter -= DeleteCharacterUI;
     }
 
-    void InitializeSlots()
+    protected override List<Character> GetItems()
     {
-        if (slots != null)
-            return;
-
-        slots = new CharacterSlot[listSize];
-
-        var charactersInfo = SingletonManager.Instance.CharacterCollection.GetCharacterList();
-
-        for (int i = 0; i < listSize; i++)
-        {
-            GameObject slotObj = Instantiate(slotPrefab, scrollContent);
-            slots[i] = slotObj.GetComponent<CharacterSlot>();
-
-            if (i < charactersInfo.Count)
-            {
-                Character temp = charactersInfo[i];
-                slots[i].UpdateSlot(temp);
-            }
-            else
-            {
-                slots[i].ClearSlot();
-            }
-        }
-
+        return SingletonManager.Instance.CharacterCollection.GetCharacterList();
     }
-
-    void ClearAllSlots()
+    protected override void ClearSlot(CharacterSlot slot)
+    {
+        slot.ClearSlot();
+    }
+    protected override void UpdateSlot(CharacterSlot slot, Character character)
+    {
+        slot.UpdateSlot(character);
+    }
+    protected override bool IsSlotFilled(CharacterSlot slot)
+    {
+        return !slot.GetGUID().Equals(string.Empty);
+    }
+    protected override int CompareSlots(CharacterSlot a, CharacterSlot b)
+    {
+        return b.GetGUID().Equals(a.GetGUID()) ? 1 : 0;
+    }
+    public void UpdateCharacterUI(Character newCharacter)
     {
         foreach (var slot in slots)
         {
-            slot.ClearSlot();
+            if (!slot.GetSlotEmptyStatus() && slot.GetGUID() == newCharacter.GetGUID())
+            {
+                slot.UpdateSlot(newCharacter);
+                ReorganizeSlots();
+                return;
+            }
+            else if (slot.GetSlotEmptyStatus() && slot.GetGUID().Equals(string.Empty))
+            {
+                slot.UpdateSlot(newCharacter);
+                ReorganizeSlots();
+                return;
+            }
         }
     }
+
+    public void DeleteCharacterUI(Character newCharacter)
+    {
+        foreach (var slot in slots)
+        {
+            if ( slot.GetGUID() == newCharacter.GetGUID())
+            {
+                slot.ClearSlot();
+                ReorganizeSlots();
+                break;
+            }
+        }
+    }
+
+
 }

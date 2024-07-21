@@ -23,6 +23,8 @@ public class CharacterSlot : MonoBehaviour
     bool isEmpty;
     Sprite defaultSlot = default;
 
+    [SerializeField]
+    Stars starUIs;
     private void Start()
     {
         defaultSlot = slotImg.sprite;
@@ -44,7 +46,7 @@ public class CharacterSlot : MonoBehaviour
         level.text = character.level.ToString();
 
         levelSlider.UpdateLevelUI(character.level, character.experience, 9); // todo : 경험치 총량은 Static Data 에서 불러오도록 할 것! 
-
+        starUIs.SetStars(character.star);
         AdjustImageWidth();
     }
 
@@ -55,7 +57,7 @@ public class CharacterSlot : MonoBehaviour
         characterTypeIconImg.sprite = null;
         slotImg.sprite = defaultSlot;
         isEmpty = true;
-
+        starUIs.SetStars(0);
         starCount = 0;
     }
 

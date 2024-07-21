@@ -16,7 +16,7 @@ public class CharacterSlot : MonoBehaviour
     Image characterImg;
     [SerializeField]
     Image slotImg;
-
+    [SerializeField]
     LevelSlider levelSlider;
 
     int starCount;

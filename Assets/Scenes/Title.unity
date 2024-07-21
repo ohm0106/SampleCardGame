@@ -507,55 +507,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!1 &1444893985
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1444893986}
-  - component: {fileID: 1444893987}
-  m_Layer: 0
-  m_Name: CharacterDebugger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1444893986
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1444893985}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8422435986598967237}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1444893987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1444893985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eef6045c34a10c548ad3713d760158bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterCollection: {fileID: 8422435986598967241}
-  selectedCharacterBaseSOName: Blue Sniper
-  newCharacterDeckCount: 0
-  newCharacterStats: []
-  newCharacterRunes: []
 --- !u!1 &1608053429
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,6 +662,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3422697281681256926, guid: e40403eef5c2d9347bc370f06ba54b56, type: 3}
+      propertyPath: levelBadges.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422697281681256926, guid: e40403eef5c2d9347bc370f06ba54b56, type: 3}
+      propertyPath: levelBadges.Array.data[1].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422697281681256926, guid: e40403eef5c2d9347bc370f06ba54b56, type: 3}
+      propertyPath: levelBadges.Array.data[0].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0aa457f380905464fad519a5d662ed48, type: 3}
+    - target: {fileID: 3422697281681256926, guid: e40403eef5c2d9347bc370f06ba54b56, type: 3}
+      propertyPath: levelBadges.Array.data[1].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 13fc64bb545d04550bdc58cabefcd0b0, type: 3}
     - target: {fileID: 7976074782028908779, guid: e40403eef5c2d9347bc370f06ba54b56, type: 3}
       propertyPath: m_Name
       value: ResourceManager
@@ -774,20 +741,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5136138744217909570, guid: 45d7273a49f9f7e46a8be17f571944c3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1444893986}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 769788097222304590, guid: 45d7273a49f9f7e46a8be17f571944c3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8422435986598967241}
   m_SourcePrefab: {fileID: 100100000, guid: 45d7273a49f9f7e46a8be17f571944c3, type: 3}
---- !u!4 &8422435986598967237 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5136138744217909570, guid: 45d7273a49f9f7e46a8be17f571944c3, type: 3}
-  m_PrefabInstance: {fileID: 8422435986598967236}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8422435986598967241
 MonoBehaviour:
   m_ObjectHideFlags: 0

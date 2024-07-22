@@ -46,4 +46,10 @@ public class LevelSlider : MonoBehaviour
         levelBadge.sprite = ResourceLibrary.Instance.CharacterLibrary.GetLevelBadge(badgeType);
 
     }
+
+    public void Clear()
+    {
+        levelText.text = string.Empty;
+        statusText.text = string.Empty;
+    }
 }

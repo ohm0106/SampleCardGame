@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-public class Slot : MonoBehaviour
+public class Slot : MonoBehaviour 
 {
 
     [SerializeField]
@@ -17,7 +17,7 @@ public class Slot : MonoBehaviour
 
     public void UpdateSlot(Item curItem)
     {
-        Slot_item.gameObject.SetActive(true); 
+        Slot_item.gameObject.SetActive(true);
         Sprite itemIcon = ResourceLibrary.Instance.ItemLibrary.GetItem(curItem.Name).icon;
         Slot_item.sprite = ResourceLibrary.Instance.ItemLibrary.GetSlotImg(ResourceLibrary.Instance.ItemLibrary.GetItem(curItem.Name).gradeType); // todo 
         ItemIcon.sprite = itemIcon;
@@ -26,6 +26,8 @@ public class Slot : MonoBehaviour
         else
             itemQuantity.text = "";
         item = curItem;
+
+        
     }
 
     public void ClearSlot()
@@ -44,6 +46,7 @@ public class Slot : MonoBehaviour
         Debug.Log("item" + item.Name);
 
         FindObjectOfType<ItemInfomation>().SetUI(item);
+        ObjectClickHandler.InvokeClick(GetComponent<RectTransform>());
     }
 
     public bool CheckEmpty()

@@ -7,6 +7,8 @@ public class CharacterUIList : BaseUIList<Character, CharacterSlot>
     {
         SingletonManager.Instance.CharacterCollection.onAddCharacter += UpdateCharacterUI;
         SingletonManager.Instance.CharacterCollection.onRemoveCharacter += DeleteCharacterUI;
+
+        FindAnyObjectByType<CharacterCountUI>()?.SetCharacterCount(GetItems().Count, listSize);
     }
 
     protected override void UnsubscribeFromEvents()

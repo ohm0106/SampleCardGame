@@ -8,8 +8,6 @@ public class CharacterSlot : BaseSlot
     [SerializeField]
     TMP_Text characterName;
     [SerializeField]
-    TMP_Text level;
-    [SerializeField]
     Image characterTypeIconImg;
     [SerializeField]
     Image characterImg;
@@ -42,7 +40,6 @@ public class CharacterSlot : BaseSlot
         slotImg.sprite = ResourceLibrary.Instance.CharacterLibrary.GetSlotImg(character.name);
 
         isEmpty = false;
-        level.text = character.level.ToString();
         levelSlider.UpdateLevelUI(character.level, character.experience, 9); // todo : 경험치 총량은 Static Data 에서 불러오도록 할 것! 
         starUIs.SetStars(character.star);
         AdjustImageWidth();

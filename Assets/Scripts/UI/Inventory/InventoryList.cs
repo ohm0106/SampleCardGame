@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryList : BaseUIList<Item, Slot>
+public class InventoryList : BaseUIList<Item, ItemSlot>
 {
     protected override void SubscribeToEvents()
     {
@@ -20,22 +20,22 @@ public class InventoryList : BaseUIList<Item, Slot>
         return SingletonManager.Instance.Inventory.GetCurItemsData();
     }
 
-    protected override void UpdateSlot(Slot slot, Item item)
+    protected override void UpdateSlot(ItemSlot slot, Item item)
     {
         slot.UpdateSlot(item);
     }
 
-    protected override void ClearSlot(Slot slot)
+    protected override void ClearSlot(ItemSlot slot)
     {
         slot.ClearSlot();
     }
 
-    protected override bool IsSlotFilled(Slot slot)
+    protected override bool IsSlotFilled(ItemSlot slot)
     {
         return slot.GetItem() != null;
     }
 
-    protected override int CompareSlots(Slot a, Slot b)
+    protected override int CompareSlots(ItemSlot a, ItemSlot b)
     {
         return b.GetItem().GradeType.CompareTo(a.GetItem().GradeType);
     }

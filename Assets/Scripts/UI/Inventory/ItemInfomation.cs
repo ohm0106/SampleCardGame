@@ -16,7 +16,7 @@ public class ItemInfomation : MonoBehaviour
     [SerializeField]
     TMP_Text price;
     [SerializeField]
-    Slot slot;
+    ItemSlot slot;
 
     [SerializeField]
     RectTransform statParent;

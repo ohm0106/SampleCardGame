@@ -22,7 +22,7 @@ public class LoadSceneManager : MonoBehaviour
         if (loadingSlider == null)
         {
             await Task.Delay(500);
-            loadingSlider = FindObjectOfType<LoadingSlider>();
+            loadingSlider = FindFirstObjectByType<LoadingSlider>();
         }
 
         if (loadingSlider != null)

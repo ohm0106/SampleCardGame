@@ -22,12 +22,12 @@ public class CharacterSelectedUIList : BaseUIList<SelectDeckInfo, SelectCharacte
 
     protected override void SubscribeToEvents()
     {
-        throw new System.NotImplementedException();
+       // throw new System.NotImplementedException();
     }
 
     protected override void UnsubscribeFromEvents()
     {
-        throw new System.NotImplementedException();
+       // throw new System.NotImplementedException();
     }
 
     protected override void UpdateSlot(SelectCharacterSlot slot, SelectDeckInfo info)
@@ -36,7 +36,7 @@ public class CharacterSelectedUIList : BaseUIList<SelectDeckInfo, SelectCharacte
     }
     protected override void ClearSlot(SelectCharacterSlot slot)
     {
-        throw new System.NotImplementedException();
+       // throw new System.NotImplementedException();
     }
 
 }

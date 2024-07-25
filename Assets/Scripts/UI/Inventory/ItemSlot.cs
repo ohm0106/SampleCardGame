@@ -47,7 +47,7 @@ public class ItemSlot : BaseSlot
             return;
 
         Debug.Log("Item: " + item.Name);
-        FindObjectOfType<ItemInfomation>().SetUI(item);
+        FindFirstObjectByType<ItemInfomation>().SetUI(item);
     }
 
     public bool CheckEmpty()

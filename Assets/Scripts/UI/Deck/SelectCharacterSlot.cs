@@ -3,6 +3,7 @@ using UnityEngine;
 public class SelectCharacterSlot : BaseSlot
 {
     bool isLock = false;
+    GameObject slot; 
     public override void ClearSlot()
     {
         throw new System.NotImplementedException();
@@ -11,21 +12,29 @@ public class SelectCharacterSlot : BaseSlot
     public override void UpdateSlot(object data)
     {
         string status = data as string;
+
+        if(slot != null)
+        {
+            Destroy(slot);
+            slot = null;
+        }
+
         if (data.Equals("0"))
         {
             isLock = false;
-            GameObject temp = Instantiate(Resources.Load<GameObject>("Prefab/UI/AddSlot"), this.gameObject.transform);
+            slot = Instantiate(Resources.Load<GameObject>("Prefab/UI/AddSlot"), this.gameObject.transform);
+            slot.GetComponent<OpenPanelBtn>().SetOepnPanel(GameObject.Find("Character_List"));
             return;
         }
         else if (data.Equals("-1"))
         {
             isLock = true;
-            GameObject temp = Instantiate(Resources.Load<GameObject>("Prefab/UI/LockSlot"), this.gameObject.transform);
+            slot =  Instantiate(Resources.Load<GameObject>("Prefab/UI/LockSlot"), this.gameObject.transform);
         }
         else
         {
-            GameObject temp = Instantiate(Resources.Load<GameObject>("Prefab/UI/SelectSlot"), this.gameObject.transform);
-            temp.GetComponent<CharacterSlot>().UpdateSlot(SingletonManager.Instance.CharacterCollection.GetCharacter(status));
+            slot = Instantiate(Resources.Load<GameObject>("Prefab/UI/SelectSlot"), this.gameObject.transform);
+            slot.GetComponent<CharacterSlot>().UpdateSlot(SingletonManager.Instance.CharacterCollection.GetCharacter(status));
         }
     }
     

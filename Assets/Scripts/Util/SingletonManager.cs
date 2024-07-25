@@ -22,7 +22,7 @@ public class SingletonManager : MonoBehaviour
             {
                 if (_instance == null)
                 {
-                    _instance = FindObjectOfType<SingletonManager>();
+                    _instance = FindFirstObjectByType<SingletonManager>();
                     if (_instance == null)
                     {
                         GameObject temp = Resources.Load<GameObject>("SingletonManager");
@@ -134,4 +134,19 @@ public class SingletonManager : MonoBehaviour
         _inventory = Inventory;
         _characterCollection = CharacterCollection;
     }
+
+    private BackButtonManager _backButtonManager;
+
+    public BackButtonManager BackButtonManager
+    {
+        get
+        {
+            if(_backButtonManager == null)
+            {
+                _backButtonManager = FindFirstObjectByType<BackButtonManager>();
+            }
+            return _backButtonManager;
+        }
+    }
+
 }

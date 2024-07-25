@@ -15,7 +15,7 @@ public class InventoryDebugger : MonoBehaviour
     {
         if (inventory == null)
         {
-            inventory = FindObjectOfType<Inventory>();
+            inventory = FindFirstObjectByType<Inventory>();
         }
     }
 

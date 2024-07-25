@@ -21,7 +21,7 @@ public class CharacterCollectionDebugger : MonoBehaviour
     {
         if (characterCollection == null)
         {
-            characterCollection = FindObjectOfType<CharacterCollection>();
+            characterCollection = FindFirstObjectByType<CharacterCollection>();
         }
     }
 

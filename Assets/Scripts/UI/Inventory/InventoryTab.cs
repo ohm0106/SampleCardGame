@@ -38,7 +38,7 @@ public class InventoryTab : MonoBehaviour
 
     void ClickEvent()
     {
-        InventoryList list = FindObjectOfType<InventoryList>();
+        InventoryList list = FindFirstObjectByType<InventoryList>();
         if (list != null)
         {
             List<ItemType> selectedTypes = FilterItemsBySelectedTypes();

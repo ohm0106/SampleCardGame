@@ -22,7 +22,7 @@ public class ResourceLibrary : MonoBehaviour
             {
                 if (_instance == null)
                 {
-                    _instance = FindObjectOfType<ResourceLibrary>();
+                    _instance = FindFirstObjectByType<ResourceLibrary>();
                     if (_instance == null)
                     {
                         GameObject singletonObject = Instantiate(Resources.Load<GameObject>("ResourceManager"));

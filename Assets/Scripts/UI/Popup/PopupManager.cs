@@ -61,7 +61,7 @@ public class PopupManager : Singleton<PopupManager>
             return;
         }
 
-        GameObject parentObj = FindObjectOfType<Canvas>().gameObject;
+        GameObject parentObj = FindFirstObjectByType<Canvas>().gameObject;
 
         if (parentObj == null)
         {
@@ -119,7 +119,7 @@ public class PopupManager : Singleton<PopupManager>
             return;
         }
 
-        GameObject parentObj = FindObjectOfType<Canvas>().gameObject;
+        GameObject parentObj = FindFirstObjectByType<Canvas>().gameObject;
 
         if (parentObj == null)
         {

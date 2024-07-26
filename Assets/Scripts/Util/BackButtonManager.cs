@@ -54,4 +54,18 @@ public class BackButtonManager : MonoBehaviour
             Debugger.PrintLog("BackButtonManager: Panel is not in the list of panels to close.", LogType.Warning);
         }
     }
+
+    public void OpenPanel(string panelName)
+    {
+        GameObject panel = panelsToClose.Find(p => p.name == panelName);
+
+        if (panel != null)
+        {
+            OpenPanel(panel);
+        }
+        else
+        {
+            Debugger.PrintLog($"BackButtonManager: Panel with name {panelName} not found in panelsToClose list.", LogType.Warning);
+        }
+    }
 }

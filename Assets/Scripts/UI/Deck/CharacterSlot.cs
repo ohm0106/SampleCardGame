@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-
+[RequireComponent(typeof(OpenPanelBtn))]
 public class CharacterSlot : BaseSlot
 {
     string udid;
@@ -20,6 +20,7 @@ public class CharacterSlot : BaseSlot
     {
         udid = string.Empty;
         levelSlider = GetComponent<LevelSlider>();
+        GetComponent<OpenPanelBtn>().SetOpenPanelName("Character");
     }
 
     public override void UpdateSlot(object data)
@@ -76,4 +77,5 @@ public class CharacterSlot : BaseSlot
         float fixedHeight = rt.rect.height;
         rt.sizeDelta = new Vector2(fixedHeight * aspectRatio, fixedHeight);
     }
+   
 }

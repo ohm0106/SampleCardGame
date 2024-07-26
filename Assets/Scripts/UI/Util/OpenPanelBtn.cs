@@ -7,6 +7,8 @@ public class OpenPanelBtn : MonoBehaviour
     [SerializeField]
     GameObject openPanel;
 
+    string openPanelName;
+
     [SerializeField]
     Button btn;
 
@@ -21,12 +23,21 @@ public class OpenPanelBtn : MonoBehaviour
 
     void Open()
     {
-        SingletonManager.Instance.BackButtonManager.OpenPanel(openPanel);
+        if (openPanel != null)
+            SingletonManager.Instance.BackButtonManager.OpenPanel(openPanel);
+        else
+            SingletonManager.Instance.BackButtonManager.OpenPanel(openPanelName);
     }
 
     public void SetOepnPanel(GameObject panel)
     {
         openPanel = panel;
     }
+
+    public void SetOpenPanelName(string name)
+    {
+        openPanelName = name;
+    }
+
 
 }

@@ -23,7 +23,7 @@ public class SelectCharacterSlot : BaseSlot
         {
             isLock = false;
             slot = Instantiate(Resources.Load<GameObject>("Prefab/UI/AddSlot"), this.gameObject.transform);
-            slot.GetComponent<OpenPanelBtn>().SetOepnPanel(GameObject.Find("Character_List"));
+            slot.GetComponent<OpenPanelBtn>().SetOpenPanelName("Character_List");
             return;
         }
         else if (data.Equals("-1"))
